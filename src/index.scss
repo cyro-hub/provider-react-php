@@ -1,0 +1,102 @@
+$bg-primary:#d3b666;
+$bg-secondary:#f8de97;
+$text-primary:#163a5f;
+$text-secondary:#1d566e;
+$warning:#ff7b00;
+$success:#199719;
+
+$media-desktop: "only screen and (min-width : 1024px)";
+$media-tablet: "only screen and (min-width : 768px)";
+$media-mobile: "only screen and (min-width : 600px)";
+$media-mobile-sm: "only screen and (min-width : 480px)";
+
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@media #{$media-desktop}{
+  body{
+    font-size: 2.5rem;
+  }
+}
+@media #{$media-tablet}{
+  body{
+    font-size: 2.25rem;
+  }
+}
+@media #{$media-mobile}{
+  body{
+    font-size: 2rem;
+  }
+}
+@media #{$media-mobile-sm}{
+  body{
+    font-size: 1.75rem;
+  }
+}
+
+body{
+  background-image:url('https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg?cs=srgb&dl=pexels-pixabay-260922.jpg&fm=jpg');
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: white;
+}
+#root{
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.main{
+  margin-top: 5rem;
+}
+
+.nav{
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  font-size: 2rem;
+  font-weight: bold;
+  padding-top: 2.5rem;
+}
+.section{
+  width: 100%;
+  margin: 1rem 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 0.25rem;
+  padding: 1rem 0.5rem;
+}
+
+.section-header{
+  width: 100%;
+  text-align: center;
+}
+
+a{
+  position: relative;
+}
+
+.nav-icon{
+  margin-bottom:-3px;
+}
+.nav-tooltip{
+  position: absolute;
+  top: -1rem;
+}
+
+.success{
+  color:$success
+}
+.warning{
+  color:$warning
+}
+
+@media(min-width:500){
+  
+}

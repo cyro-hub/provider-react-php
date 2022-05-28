@@ -1,0 +1,25 @@
+$bg-primary:#d3b666;
+
+.welcome{
+    width: 100%;
+    margin-bottom: 2rem;
+    margin-top: 15rem;
+
+    h2,h3{
+        width: 100%;
+        text-align: center;
+    }
+    a{
+        color: white;
+        text-decoration: none;
+        box-shadow: 2px 3px 4px $bg-primary;
+        padding: 0 1.5rem;
+    }
+    a:hover{
+        box-shadow: none; 
+    }
+}
+
+.section-list{
+    margin-left: 1.5rem;
+}

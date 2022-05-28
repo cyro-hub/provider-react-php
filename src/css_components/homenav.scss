@@ -1,0 +1,57 @@
+$media-desktop: "only screen and (min-width : 600px)";
+// $media-tablet: "only screen and (max-width : 768px)";
+$media-mobile: "only screen and (max-width : 600px)";
+// $media-mobile-sm: "only screen and (max-width : 480px)";
+
+$text-primary:white;
+$bg-primary:#d3b666;
+$bg-secondary:#f8de97;
+$text-secondary:#1d566e;
+$warning:#ff7b00;
+$success:#199719;
+
+@media #{$media-desktop}{
+    .m-nav-menu{
+        display: none;
+    }
+    .nav-list{
+        float: right;
+        a{
+            margin: 1rem 1rem;
+            text-decoration: none;
+            color: $text-primary;
+            font-size: 1.5rem;
+        }
+    }
+}
+
+@media #{$media-mobile} {
+  .nav-list{
+      display: none;
+  }
+  .m-nav-menu{
+      float: right;
+      display: block;
+      margin-right: 1rem;
+  }
+  .menu{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      width: 100%;
+      top: 5rem;
+      left: 0;
+  }
+  .m-nav-item{
+      text-decoration: none;
+      color: $text-secondary;
+      text-align: center;
+      margin: 0 1rem;
+      padding-top: 10px;
+      background-color: $bg-primary;
+      font-size: 1.5rem;
+      border-bottom: 0.5px solid black;
+  }
+}
+
