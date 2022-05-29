@@ -1,0 +1,49 @@
+$media-mobile: "only screen and (max-width : 600px)";
+
+$bg-primary:#163a5f;
+$bg-secondary:hsla(0, 0%, 0%, 0.3);
+$bg-tertiary:#163b5f80;
+
+$text-primary:#ffffff;
+$text-secondary:#ffffffbf;
+$text-tertiary:#ffffff80;
+
+.admin{
+    width: 45rem;
+}
+
+.chat-body{
+    display: flex;
+    flex-direction: row;
+    height: 75vh;
+
+    .chat-names{
+        width:20%;
+        margin: 10px 0;
+        overflow-y: scroll;
+
+        .name{
+            font-size: medium;
+            margin: 5px 0;
+            color: white;
+            padding: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .name:hover{
+            background-color:$bg-secondary ;
+        }
+    }
+    .chats{
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+    }
+}
+
+@media #{$media-mobile}{
+    .chat{
+        margin-top: -0.5rem;
+    }    
+}

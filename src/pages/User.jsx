@@ -2,6 +2,7 @@ import React,{useState,useEffect,useCallback} from 'react'
 import UserNav from '../components/UserNav'
 import {GoSearch} from 'react-icons/go'
 import Card from '../components/Card'
+import '../css_pages/user.scss'
 
 function User() {
 const [showSearchLogo,setShowSearchLogo]=useState(true)
@@ -46,25 +47,6 @@ const handleSearch = useCallback(()=>{
     setRecipes(newRecipes);
 },[searchRecipe])
 
-// function for the swapping of the find icon 
-useEffect(()=>{
-    let searchElement = document.getElementById('search');
-    searchElement.addEventListener('focusin',()=>{
-        setShowSearchLogo(false);
-    })
-    searchElement.addEventListener('focusout',()=>{
-        setShowSearchLogo(true)
-    })
-
-    return ()=>{
-        searchElement.removeEventListener('focusin',()=>{
-            setShowSearchLogo(false)
-        })
-        searchElement.addEventListener('focusout',()=>{
-            setShowSearchLogo(true)
-        })
-    }
-})
 // function for the fetch api
 useEffect(()=>{
     const getRecipes =async()=>{
@@ -86,15 +68,19 @@ useEffect(()=>{
   <section className='main'>
     <div className="welcome">
         <h2 className="">Select a Recipe</h2>
+        <input type="text" 
+               name='search' 
+               className='search' 
+               id='search' 
+               placeholder='search' 
+               value={searchRecipe} 
+               onChange={(e)=>setSearchRecipe(e.target.value)}
+        />
     </div>
-    <form className='search-form' onSubmit={(e)=>handleSearch(e)}>
-        <div className='search-container'>
-            {showSearchLogo&&<GoSearch className=''/>}
-            <input type="text" name='search' id='search' placeholder='search' value={searchRecipe} onChange={(e)=>setSearchRecipe(e.target.value)}  className=''/>
+    <div className='section'>
+        <div className='card-items'>
+            {recipes.map((recipe,index)=><Card key={index} obj={recipe}/>)}
         </div>
-    </form>
-    <div className='card-items'>
-        {recipes.map((recipe,index)=><Card key={index} obj={recipe}/>)}
     </div>
   </section>
   </>)

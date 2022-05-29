@@ -1,0 +1,26 @@
+$bg-primary:#163a5f;
+$bg-secondary:hsla(0, 0%, 0%, 0.3);
+$bg-tertiary:#163b5f80;
+
+$text-primary:#ffffff;
+$text-secondary:#ffffffbf;
+$text-tertiary:#ffffff80;
+
+.search{
+    width: 60%;
+    margin: 1rem auto;
+    padding: 10px;
+    background-color: $bg-tertiary;
+    outline: none;
+    border-radius: 8px;
+    border: 0.5px solid gray;
+    font-size: 20px;
+    color: $text-primary;
+    z-index: 10;
+}
+.card-items{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    z-index: 5;
+}

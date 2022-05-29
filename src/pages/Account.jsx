@@ -126,12 +126,12 @@ useEffect(()=>{
             <div className='input-div'>
                 <input className='input' type="email" name='email' 
                 value={login.email} 
-                onChange={(e)=>handleChanges(e)} placeholder='Email' id='login-email'/>
+                onChange={(e)=>handleChanges(e)} placeholder='Email' id='login-email' required/>
             </div> 
             <div className='input-div'>
                 <input className='input' type="password" name='password' 
                 value={login.password} 
-                onChange={(e)=>handleChanges(e)} placeholder='Password' id='login-password'/>
+                onChange={(e)=>handleChanges(e)} placeholder='Password' id='login-password' required/>
             </div>
 
             <div className='input-div'>

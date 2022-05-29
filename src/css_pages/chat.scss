@@ -1,0 +1,124 @@
+$media-mobile-sm: "only screen and (max-width : 480px)";
+
+$bg-primary:#163a5f;
+$bg-secondary:hsla(0, 0%, 0%, 0.3);
+$bg-tertiary:#163b5f80;
+
+$text-primary:#ffffff;
+$text-secondary:#ffffffbf;
+$text-tertiary:#ffffff80;
+
+.chat{
+    width: 35rem;
+    background-color:$bg-secondary;
+    margin: 3rem auto;
+    padding: 0.5rem;
+    border-radius: 8px;
+    color: $text-primary;
+    font-size: large;
+
+    .message-send,.messages{
+        width: 100%;
+        display: flex;
+    }
+
+    .search{
+        width: 100%;
+        background-color:$bg-tertiary;
+        padding: 10px;
+        outline: none;
+        color: $text-secondary;
+        font-size: large;
+    }
+    .search,.message-input{
+        border-radius: 5px;
+        border: none;
+        font-weight: bold;
+    }
+    .message-input{
+        flex: 1;
+        padding: 8px;
+        background-color: transparent;
+        outline: none;
+        color: $text-secondary;
+        font-size: large;
+    }
+    .send-icon{
+        margin: 0 5px;
+        margin-top: 6px;
+    }
+    .message-send{
+        background-color:$bg-tertiary;
+        border-radius: 8px;
+    }
+    .messages{
+        height: 70vh;
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+    }
+
+    .message{
+        padding: 5px;
+        font-size: 18px;
+        max-width: 85%;
+        margin: 10px 5px;
+        display: flex;
+        flex-direction:column;
+        line-height: 15px;
+        color: $text-secondary;
+    }
+    .message-left{
+        float: left;
+        background-color: $bg-primary;
+        border-radius: 8px;
+    }
+    .date-right,.date-left{
+        font-style: italic;
+        font-size: small;
+        font-weight: bolder;
+    }
+    .message-right{
+        margin-left: auto;
+        border-radius: 8px;
+        text-align: right;
+        background-color: $bg-secondary;
+
+        .user-right{
+            margin-left: auto;
+        }
+    }
+    .user-right,.user-left{
+        width: fit-content;
+        padding: 0 10px;
+        padding-top: 10px;
+        font-weight: bolder;
+        margin-bottom: 8px;
+    }
+    .date-left{
+        width: 100%;
+        text-align: left;
+    }
+    .date-right{
+        width: 100%;
+        text-align: right;
+    }
+}
+
+::-webkit-input-placeholder { /* Edge */
+    color: $text-tertiary;
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer */
+    color: $text-tertiary;
+  }
+  
+  ::placeholder {
+    color: $text-tertiary;
+  }
+
+  @media #{$media-mobile-sm}{
+    .chat{
+        width: 100%;
+    }
+  }

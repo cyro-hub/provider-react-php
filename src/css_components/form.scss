@@ -1,42 +1,57 @@
-$text-primary:#163a5f;
-$text-secondary:#214c77;
+$bg-primary:#163a5f;
+$bg-secondary:hsla(0, 0%, 0%, 0.3);
+$bg-tertiary:#163b5f80;
+
+$text-primary:#ffffff;
+$text-secondary:#ffffffbf;
+$text-tertiary:#ffffff80;
+
+$media-mobile: "only screen and (max-width : 600px)";
 
 .form{
     width: 22rem;
     margin: 0 auto;
+    margin-bottom: 10rem;
 
     .input-div{
         width: 100%;
-        margin: 0.8rem 0;
+        margin: 1rem 0;
         display: flex;
 
-        .input,textarea{
+        .input,textarea,select{
             width: 100%;
-            padding: 10px;
-            background-color: rgba(255, 255, 255, 0.6);
+            padding: 12px;
+            background-color: $bg-secondary;
             border-radius: 5px;
             border: none;
             outline: none;
             font-weight: bold;
+            color: $text-secondary;
+            font-size: 18px;
+            .option{
+                color: black;
+              }
         }
     }
     .submit{
         border: none;
         border-radius: 5px;
         padding: 0.5rem 1rem;
-        color:white ;
-        font-weight: bold;
+        color:$bg-primary;
+        font-weight: bolder;
+        font-size: 18px;
     }
     .contact{
         background-color: $text-primary;
         margin: 0 auto;
     }
     .swap{
-        font-weight: bold;
-        color: white;
+        font-weight: bolder;
+        color: $text-primary;
         border: none;
         background-color: transparent;
-        margin-left: 14rem;
+        margin-left: 11.75rem;
+        font-size: 18px;
     }
     .account{
         background-color: $text-primary;
@@ -44,16 +59,35 @@ $text-secondary:#214c77;
     .submit:hover{
         background-color:$text-secondary;
     }
+    .check{
+        padding: 0.5rem;
+        border-radius: 5px;
+        .add-recipe-label{
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .add-recipe-checkbox{
+            width: 14px;
+            height: 14px;
+            margin-left: 0.5rem;
+        }
+    }
 }
 
-::-webkit-input-placeholder { /* Edge */
-    color: rgba(0, 0, 0, 0.7);
-  }
+// ::-webkit-input-placeholder { /* Edge */
+//     color: rgba(0, 0, 0, 0.7);
+//   }
   
-  :-ms-input-placeholder { /* Internet Explorer */
-    color: rgba(0, 0, 0, 0.7);
-  }
+//   :-ms-input-placeholder { /* Internet Explorer */
+//     color: rgba(0, 0, 0, 0.7);
+//   }
   
-  ::placeholder {
-    color: rgba(0, 0, 0, 0.7);
+//   ::placeholder {
+//     color: rgba(0, 0, 0, 0.7);
+//   }
+
+  @media #{$media-mobile}{
+      .form{
+          width: 95%;
+      }
   }

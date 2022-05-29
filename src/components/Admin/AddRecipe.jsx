@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react'
+import '../../css_components/form.scss'
 
 function AddRecipe() {
 const [recipe,setRecipe]=useState({
@@ -37,9 +38,9 @@ useEffect(()=>{
 },[recipe])
 
   return (<>
-    <form onSubmit={(e)=>handleSubmit(e)} className=''>
+    <form onSubmit={(e)=>handleSubmit(e)} className='form'>
       <div className='input-div'>
-        <h1 className='section-header'>Add Recipe</h1>
+        <h3>Add Recipe</h3>
       </div>
       <div>
         {warning&&<p className='warning'>{warning}</p>}
@@ -56,15 +57,15 @@ useEffect(()=>{
       <div className='input-div'>
         <select name="from" className='input' onChange={(e)=>handleChanges(e)} id="country">
           {/* fetch api and add option  */}
-          <option value="sd">sdfs</option>
-          <option value="sdsdfa">sdfs</option>
+          <option className='option' value="sd">sdfs</option>
+          <option className='option' value="sdsdfa">sdfs</option>
         </select>
       </div>
-      <div className='input-div'>
+      <div className='input-div check'>
         <label htmlFor="delivery" className='add-recipe-label'>Delivery</label>
         <input type="checkbox" className='add-recipe-checkbox'  name='delivery' id='delivery' onChange={(e)=>handleChanges(e)}/>
       </div>
-      <div className='input-div'>
+      <div className='input-div check'>
         <label htmlFor="status" className='add-recipe-label'>Status</label>
         <input type="checkbox"  className='add-recipe-checkbox' name='status' id='status' onChange={(e)=>handleChanges(e)} />
       </div>
@@ -72,7 +73,7 @@ useEffect(()=>{
         <textarea  className='input-textarea' name="des" id="des" placeholder='Description' cols="30" rows="6" onChange={(e)=>handleChanges(e)} value={recipe.des}></textarea>
       </div>
       <div className='input-div'>
-        <button type='submit' className='submit'>Add</button>
+        <button type='submit' className='submit contact'>Add</button>
       </div>
     </form>
   </>)

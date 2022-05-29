@@ -1,7 +1,7 @@
 import React,{useState,useEffect,useCallback} from 'react'
 import UserNav from '../components/UserNav'
-import {GoLocation} from 'react-icons/go'
-import {AiOutlineSend} from 'react-icons/ai'
+import {MdLocationOn,MdSend} from 'react-icons/md'
+import '../css_pages/chat.scss'
 
 function Chat() {
 const [searchMessage,setSearchMessage]=useState('')
@@ -9,7 +9,7 @@ const [messages,setMessages] = useState([
   {id:1,
   name:'syril',
   role:'user',
-  message:"this is a messsage",
+  message:"this is ajdf jsdflladsf jkdfl asdfjkoldfksdfl;lksdkdfkksdfk ksdfl kssd ksdfkk kklsdfk messsage",
   location:'',
   date:'11/12/21'},
   {id:2,
@@ -17,7 +17,7 @@ const [messages,setMessages] = useState([
     role:'admin',
     message:"asdff dfewr dfsfsf",
     location:'',
-    date:'11/12/21'}
+    date:'11/12/21'},
 ]);
 
 const [message,setMessage]=useState({
@@ -75,9 +75,9 @@ useEffect(()=>{
 })
   return (<>
   <UserNav/>
-  <section className=''>
+  <section className='main chat'>
       <input type="search" 
-             placeholder='search' 
+             placeholder='search message' 
              name="search" 
              onChange={(e)=>setSearchMessage(e.target.value)} 
              id='search' 
@@ -85,7 +85,7 @@ useEffect(()=>{
       {/* chat section  */}
 
     <div>{warning&&<p className='warning'>{warning}</p>}</div>
-    <div className='messages'>
+    <div className='messages scroll'>
         {
         messages.map(message=><React.Fragment key={message.id}>
           {message.role==='admin'&&<p className='message message-left'>
@@ -103,9 +103,9 @@ useEffect(()=>{
     </div>
 
     <div className='message-send'>
-      <GoLocation onClick={()=>handleLocation()} className='send-icon' size='20'/>
-      <input type="text" name='message' id='message' onChange={e=>handleMessage(e)} className='message-input'/>
-      <AiOutlineSend onClick={()=>handleSend()} className='send-icon' size='20'/>
+      <MdLocationOn onClick={()=>handleLocation()} className='send-icon' size='25'/>
+      <input type="text" name='message' id='message' onChange={e=>handleMessage(e)} className='message-input' placeholder='type a message'/>
+      <MdSend onClick={()=>handleSend()} className='send-icon' size='25'/>
     </div>
   </section>
   </>)

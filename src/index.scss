@@ -1,9 +1,13 @@
-$bg-primary:#d3b666;
-$bg-secondary:#f8de97;
-$text-primary:#163a5f;
-$text-secondary:#1d566e;
-$warning:#ff7b00;
-$success:#199719;
+$bg-primary:#163a5f;
+$bg-secondary:hsla(0, 0%, 0%, 0.3);
+$bg-tertiary:#163b5f80;
+
+$text-primary:#ffffff;
+$text-secondary:#ffffffbf;
+$text-tertiary:#ffffff80;
+
+$success:#196819;
+$warning:#f17917;
 
 $media-desktop: "only screen and (min-width : 1024px)";
 $media-tablet: "only screen and (min-width : 768px)";
@@ -39,21 +43,18 @@ $media-mobile-sm: "only screen and (min-width : 480px)";
 }
 
 body{
-  background-image:url('https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg?cs=srgb&dl=pexels-pixabay-260922.jpg&fm=jpg');
-  background-size:cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-color:$bg-primary ;
   color: white;
 }
 #root{
   width: 100%;
-  max-width: 1024px;
+  max-width: 1280px;
   margin: 0 auto;
   position: relative;
 }
 
 .main{
-  margin-top: 5rem;
+  margin-top: 3rem;
 }
 
 .nav{
@@ -68,14 +69,18 @@ body{
 .section{
   width: 100%;
   margin: 1rem 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: $bg-secondary;
   border-radius: 0.25rem;
   padding: 1rem 0.5rem;
+  color:$text-secondary;
+  display: flex;
+  flex-direction: column;
 }
 
-.section-header{
+h3{
   width: 100%;
   text-align: center;
+  color: $text-primary;
 }
 
 a{
@@ -91,12 +96,27 @@ a{
 }
 
 .success{
-  color:$success
+  color:$success;
+  font-size:20px;
+  width: 100%;
+  text-align: center;
 }
 .warning{
-  color:$warning
+  color:$warning;
+  font-size:20px;
+  width: 100%;
+  text-align: center;
 }
 
-@media(min-width:500){
-  
+
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scroll {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }

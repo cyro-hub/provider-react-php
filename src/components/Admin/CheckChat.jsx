@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
-import {GoLocation} from "react-icons/go";
-import {AiOutlineSend,AiOutlineWechat} from "react-icons/ai"
+import {MdLocationOn,MdSend} from 'react-icons/md'
+import '../../css_components/css_admin/checkchat.scss'
 
 function CheckChat() {
 const [message,setMessage]=useState({
@@ -12,6 +12,31 @@ const [message,setMessage]=useState({
 });
 const [search,setSearch]=useState('');
 const [names,setNames]=useState([
+  {name:'Ali'},
+  {name:'musa'},
+  {name:'Ali'},
+  {name:'musa'},
+  {name:'Ali'},
+  {name:'musa'},
+  {name:'Ali'},
+  {name:'musa'},
+  {name:'Ali'},
+  {name:'musa'},
+  {name:'Ali'},
+  {name:'musa'},
+  {name:'Ali'},
+  {name:'musa'},
+  {name:'Ali'},
+  {name:'musa'},
+  {name:'Ali'},
+  {name:'musa'},
+
+  {name:'Ali'},
+  {name:'musa'},
+  {name:'Ali'},
+  {name:'musa'},
+  {name:'Ali'},
+  {name:'musa'},
   {name:'Ali'},
   {name:'musa'},
 ]);
@@ -26,7 +51,84 @@ const [chats,setChats]=useState([{id:1,
     role:'admin',
     message:"asdff dfewr dfsfsf",
     location:'',
-    date:'11/12/21'}]);
+    date:'11/12/21'},{id:1,
+      name:'syril',
+      role:'user',
+      message:"this is a messsage",
+      location:'',
+      date:'11/12/21'},
+      {id:2,
+        name:'admin',
+        role:'admin',
+        message:"asdff dfewr dfsfsf",
+        location:'',
+        date:'11/12/21'},{id:1,
+          name:'syril',
+          role:'user',
+          message:"this is a messsage",
+          location:'',
+          date:'11/12/21'},
+          {id:2,
+            name:'admin',
+            role:'admin',
+            message:"asdff dfewr dfsfsf",
+            location:'',
+            date:'11/12/21'},{id:1,
+              name:'syril',
+              role:'user',
+              message:"this is a messsage",
+              location:'',
+              date:'11/12/21'},
+              {id:2,
+                name:'admin',
+                role:'admin',
+                message:"asdff dfewr dfsfsf",
+                location:'',
+                date:'11/12/21'},{id:1,
+                  name:'syril',
+                  role:'user',
+                  message:"this is a messsage",
+                  location:'',
+                  date:'11/12/21'},
+                  {id:2,
+                    name:'admin',
+                    role:'admin',
+                    message:"asdff dfewr dfsfsf",
+                    location:'',
+                    date:'11/12/21'},{id:1,
+                      name:'syril',
+                      role:'user',
+                      message:"this is a messsage",
+                      location:'',
+                      date:'11/12/21'},
+                      {id:2,
+                        name:'admin',
+                        role:'admin',
+                        message:"asdff dfewr dfsfsf",
+                        location:'',
+                        date:'11/12/21'},{id:1,
+                          name:'syril',
+                          role:'user',
+                          message:"this is a messsage",
+                          location:'',
+                          date:'11/12/21'},
+                          {id:2,
+                            name:'admin',
+                            role:'admin',
+                            message:"asdff dfewr dfsfsf",
+                            location:'',
+                            date:'11/12/21'},{id:1,
+                              name:'syril',
+                              role:'user',
+                              message:"this is a messsage",
+                              location:'',
+                              date:'11/12/21'},
+                              {id:2,
+                                name:'admin',
+                                role:'admin',
+                                message:"asdff dfewr dfsfsf",
+                                location:'',
+                                date:'11/12/21'}]);
 const [name,setName]=useState('')
 
 const handleSend=async()=>{
@@ -53,28 +155,25 @@ useEffect(()=>{
 
 },[name])
 
-  return (<section className=''>
-  <div className='section'>
+  return (<section className='main chat admin'>
     <h1 className='section-header'>Chats</h1>
-  </div>
       <input type="search" placeholder='search' name="search"   onChange={(e)=>setSearch(e.target.value)} id='search'   className='search' value={search}/>
       {/* name of chats  */}
     <div className='chat-body'>
-      <div className='chat-names'>
+      <div className='chat-names scroll'>
       {
         names.map((name,index)=>
-          <div key={index} onClick={()=>viewChat(name.name)} className=''>
+          <div key={index} onClick={()=>viewChat(name.name)} className='name'>
             <h1 className=''>Name</h1>
             <p className=''>last message 
-              {/* use map for mapping 3 words and display the others with a triple dot  */}
-              <span className=''>1/2/21</span>
+              {/* use map for mapping 2 words and display the others with a triple dot  */}
             </p>
           </div>)
       }
       </div>
       {/* name of chats  */}
-      <div className='chats'>
-      {name&&
+      <div className='chats scroll'>
+      {
         chats.map(chat=><React.Fragment key={chat.id}>
           {chat.role==='admin'&&<p className='message message-right'>
             <span className='user-right'>{chat.name}</span>
@@ -90,13 +189,13 @@ useEffect(()=>{
       </div>
     </div>
   <div className='message-send'>
-        <GoLocation onClick={()=>handleLocation()} className='send-icon' size='20'/>
+        <MdLocationOn onClick={()=>handleLocation()} className='send-icon' size='20'/>
         <input type="text" 
                name='message' 
                id='message' 
                onChange={e=>handleMessage(e)} 
                className='message-input'/>
-        <AiOutlineSend onClick={()=>handleSend()} className='send-icon' size='20'/>
+        <MdSend onClick={()=>handleSend()} className='send-icon' size='20'/>
       </div>
 </section>)
 }
