@@ -31,8 +31,24 @@ class Location extends Database{
         }
     }
 
-    public function updateLocation($region,$town){
-        // ADD code for updating location
+    public function updateLocation($region,$town,$id){
+        $sql = "update Location set region = '$region',town = '$town' where locationID = $id";
+        if($this->insertDB($sql)){
+            echo json_encode(['message'=>'Location updated successfully','status'=>200],true);
+        }else{
+            echo json_encode(['message'=>'Failed to update location','status'=>404],true);
+        }
+        return;
+    }
+
+    public function deleteLocation($id){
+        $sql = "delete Location where locationID=$id";
+        if($this->insertDB($sql)){
+            echo json_encode(['message'=>'Location deleted successfully','status'=>200],true);
+        }else{
+            echo json_encode(['message'=>'Failed to delete location','status'=>404],true);
+        }
+        return;
     }
 }
 

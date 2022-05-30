@@ -11,7 +11,7 @@ const [register,setRegister]=useState({
     password:'',
     cPassword:'',
     tel:'',
-    location:locations?.town
+    location:locations?.town||'location unavailable'
 });
 
 const [login,setLogin]=useState({
@@ -50,9 +50,7 @@ const handleRegister=async(e)=>{
         })
         .then(response => response.json())
         .then(data => {
-            if(data.status===200){
-                
-            }else{
+            if(data.status!==200){
                 setWarning(data.message)
             }
         })

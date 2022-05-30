@@ -11,12 +11,24 @@ include '../vendor/autoload.php';
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
+$user = new User();
+
+$data = json_decode(file_get_contents("php://input", true));
+
+// loging user in the website
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $data = json_decode(file_get_contents("php://input", true));
+
     $email = htmlentities($data->email);
     $password = htmlentities($data->password);
 
-    $user = new User();
     $user->loginUser($email,$password);
 
+}
+
+// deleting user from the user table
+if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+
+    $id = htmlentities($data->locationID);
+
+    $user->removeUser($id);
 }

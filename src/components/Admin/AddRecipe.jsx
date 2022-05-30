@@ -2,41 +2,80 @@ import React,{useState,useEffect} from 'react'
 import '../../css_components/form.scss'
 
 function AddRecipe() {
+const [locations,setLocations]=useState([]);
 const [recipe,setRecipe]=useState({
   name:'',
-  imgURL:'',
+  image:'',
   price:'',
-  from:'',
+  from:locations?.region||'Location unavailable',
   delivery:false,
   status:false,
   des:''
 })
 const [warning,setWarning]=useState('');
+const [success,setSuccess]=useState('');
+const [imageSelected,setImageSelected]=useState(false);
 
 const handleChanges=(e)=>{
   if(e.target.checked){
     setRecipe({...recipe,[e.target.name]:e.target.checked})
     return;
   }
+  if(e.target.name === 'image'){
+    if (e.target.value.match(/\.(jpg|jpeg|png|gif)$/)) {
+      setRecipe({...recipe,[e.target.name]:e.target.files[0]})
+     return;
+    }else{
+      setWarning('Please select valid image (jpg,jpeg,png,gif)')
+      return;
+    }
+  }
   setRecipe({...recipe,[e.target.name]:e.target.value})
 }
-
-const handleSubmit=(e)=>{
+console.log(recipe)
+const handleSubmit=async(e)=>{
   e.preventDefault()
   for(const key in recipe){
     if(recipe[key]===''){
       setWarning(`${key} is empty`)
+      return;
     }
   }
+  await fetch(`${process.env.REACT_APP_API}/recipe.php`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(recipe),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+    }).catch(err=>{
+      console.error(err.message)
+    })
 }
 
 useEffect(()=>{
   const timer = setTimeout(()=>{
       setWarning('')
+      setSuccess('')
   },4000)
   return ()=>clearTimeout(timer)
-},[recipe])
+})
 
+useEffect(()=>{
+  const getLocations = async()=>{
+      await fetch(`${process.env.REACT_APP_API}/location.php`).then(res=>res.json()).then(data=>{
+          if(data.status===200){
+              setLocations(data.data);
+          }else{
+              setWarning(data.message)
+          }
+      })
+  }
+  getLocations();
+},[])
   return (<>
     <form onSubmit={(e)=>handleSubmit(e)} className='form'>
       <div className='input-div'>
@@ -45,20 +84,23 @@ useEffect(()=>{
       <div>
         {warning&&<p className='warning'>{warning}</p>}
       </div>
+      <div>{success&&<p className='success'>{success}</p>}</div>
       <div className='input-div'>
         <input type="text" className='input' name='name' id='name' placeholder='Name' value={recipe.name} onChange={(e)=>handleChanges(e)}/>
       </div>
       <div className='input-div'>
-        <input type="text"  className='input' name='imgURL' id='imgURL' placeholder='image url' onChange={(e)=>handleChanges(e)} value={recipe.imgURL}/>
+        <label htmlFor="image" className='submit contact'>{imageSelected?'Image selected':'Select an Image'}
+          <input type="file"  className='input' name='image' id='image' onChange={(e)=>handleChanges(e)} style={{display:'none'}} />
+        </label>
       </div>
       <div className='input-div'>
         <input type="number" placeholder='Price' name='price' className='input' id='price' onChange={(e)=>handleChanges(e)} value={recipe.price}/>
       </div>
       <div className='input-div'>
         <select name="from" className='input' onChange={(e)=>handleChanges(e)} id="country">
-          {/* fetch api and add option  */}
-          <option className='option' value="sd">sdfs</option>
-          <option className='option' value="sdsdfa">sdfs</option>
+        {
+          locations.map(location=><option className='option' key={location.locationID} value={location.town}>{location.town}</option>)
+        }
         </select>
       </div>
       <div className='input-div check'>

@@ -69,6 +69,16 @@ public function registerUser(){
         echo json_encode(['message'=>'Registration failed','status'=>404],true);
     }
 }
+//removing user from the database
+public function removeUser($userID){
+    $sql = "delete from users where userID=$userID";
+
+    if($this->insertDB($sql)){//using the insert function from the Database class to delete user
+        echo json_encode(['message'=>'User remove successfully','status'=>200],true);
+    }else{
+        echo json_encode(['message'=>'Failed to remove user','status'=>404],true);
+    }
+}
 
 // user token verification
 public function verifyToken($jwt){

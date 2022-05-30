@@ -9,8 +9,10 @@ include '../controller/Location.php';
 
 $location = new Location();
 
+$data = json_decode(file_get_contents("php://input", true));
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $data = json_decode(file_get_contents("php://input", true));
+
     $region = htmlentities($data->region);
     $town = htmlentities($data->town);
 
@@ -25,5 +27,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
-// ADD code for updating location
+
+    $region = htmlentities($data->region);
+    $town = htmlentities($data->town);
+    $id = htmlentities($data->locationID);
+
+    $location->updateLocation($region,$town,$id);
+}
+
+if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
+
+    $id = htmlentities($data->locationID);
+
+    $location->deleteLocation($id);
 }
