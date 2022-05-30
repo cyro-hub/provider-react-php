@@ -89,12 +89,10 @@ useEffect(()=>{
         {
         messages.map(message=><React.Fragment key={message.id}>
           {message.role==='admin'&&<p className='message message-left'>
-            <span className='user-left'>{message.name}</span>
               {message.message}
             <span className='date-right'>{message.date}</span>
           </p>}
           {message.role==='user'&&<p className='message message-right'>
-            <span className='user-right'>{message.name}</span>
               {message.message}
             <span className='date-left'>{message.date}</span>
           </p>}</React.Fragment>)

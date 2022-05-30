@@ -1,14 +1,17 @@
 import React,{useState,useEffect} from 'react'
 import HomeNav from '../components/HomeNav'
+import * as actions from '../redux/actions'
+import User from './User';
 
 function Account() {
+const [locations,setLocations]=useState([]);
 const [register,setRegister]=useState({
     name:'',
     email:'',
     password:'',
     cPassword:'',
     tel:'',
-    location:''
+    location:locations?.town
 });
 
 const [login,setLogin]=useState({
@@ -17,9 +20,9 @@ const [login,setLogin]=useState({
 });
 
 const [showRegister,setShowRegister]=useState(true);
-const [locations,setLocations]=useState([]);
 const [warning,setWarning]=useState('');
 const [success,setSuccess]=useState('');
+const [navigateToUser,setNavigateToUser]=useState(null)
 
 const handleRegister=async(e)=>{
     e.preventDefault();
@@ -38,7 +41,7 @@ const handleRegister=async(e)=>{
         }
       }
 
-    await fetch('http://localhost:4500/rest/views/register.php', {
+    await fetch(`${process.env.REACT_APP_API}/register.php`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -48,10 +51,7 @@ const handleRegister=async(e)=>{
         .then(response => response.json())
         .then(data => {
             if(data.status===200){
-                setSuccess(data.message)
-                const setTimer = setTimeout(()=>{
-                    window.location.href='/login'
-                },1000)
+                
             }else{
                 setWarning(data.message)
             }
@@ -62,7 +62,7 @@ const handleRegister=async(e)=>{
 const handleLogin=async(e)=>{
     e.preventDefault();
 
-    await fetch(`http://localhost:4500/rest/views/login.php`, {
+    await fetch(`${process.env.REACT_APP_API}/login.php`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -72,11 +72,10 @@ const handleLogin=async(e)=>{
         .then(response => response.json())
         .then(data => {
             if(data.status===200){
-                setSuccess(data.message)
                 localStorage.setItem('token',JSON.stringify(data.data));
-                const setTimer = setTimeout(()=>{
-                    window.location.href='/user'
-                },1000)
+                actions.authenticateUser();
+                setSuccess(data.message)
+                setNavigateToUser(true)
             }else{
                 setWarning(data.message)
             }
@@ -103,7 +102,7 @@ useEffect(()=>{
 
 useEffect(()=>{
     const getLocations = async()=>{
-        await fetch(`http://localhost:4500/rest/views/location.php`).then(res=>res.json()).then(data=>{
+        await fetch(`${process.env.REACT_APP_API}/location.php`).then(res=>res.json()).then(data=>{
             if(data.status===200){
                 setLocations(data.data);
             }else{
@@ -114,7 +113,7 @@ useEffect(()=>{
     getLocations();
 },[])
 
-  return (<>
+  return (<>{navigateToUser?<User/>:<>
   <HomeNav/>
   <section className='main'>
     {showRegister&&
@@ -170,9 +169,8 @@ useEffect(()=>{
             <div className='input-div'>
                 <select className='input' name='location' 
                 onChange={(e)=>handleChanges(e)}>
-                    <option>select location</option>
                     {
-                     locations.map(location=><option key={location.locationID} value={location.town} className=''>{location.town}</option>)
+                     locations.map(location=><option className='option' key={location.locationID} value={location.town}>{location.town}</option>)
                     }
                 </select>
             </div>
@@ -182,7 +180,7 @@ useEffect(()=>{
             </div>    
         </form>}
   </section>
-  </>)
+  </>}</>)
 }
 
 var numberPattern = new RegExp("^((62)|(67)|(66)|(65))[0-9]{7}$");

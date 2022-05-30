@@ -3,6 +3,7 @@ import {MdOutlineGridView} from 'react-icons/md'
 import {BiUser,BiMessageRoundedDots} from 'react-icons/bi'
 import {RiFullscreenExitFill,RiShoppingCart2Line} from 'react-icons/ri';
 import {AiOutlineHome} from 'react-icons/ai';
+import {Link} from "react-router-dom"
 import '../css_components/homenav.scss'
 
 function UserNav() {
@@ -23,14 +24,14 @@ return ()=>{
 
 return (<section className='nav'>
     <div className='nav-list'>
-    <a href='/' className='nav-item'><AiOutlineHome size='28' className='nav-icon'/></a>
-        <a href='/chechout' className='nav-item'><RiShoppingCart2Line size='28' className='nav-icon'/>
+    <Link to='/' className='nav-item'><AiOutlineHome size='28' className='nav-icon'/></Link>
+        <Link to='/cart' className='nav-item'><RiShoppingCart2Line size='28' className='nav-icon'/>
       <span className='nav-tooltip'>{messages}</span>
-      </a>
-      <a href='/chat' className='nav-item'><BiMessageRoundedDots size='28' className='nav-icon'/>
+      </Link>
+      <Link to='/chat' className='nav-item'><BiMessageRoundedDots size='28' className='nav-icon'/>
       <span className='nav-tooltip'>{messages}</span>
-      </a>
-      <a href='/login' className='nav-item'><BiUser size='28' className='nav-icon'/></a>
+      </Link>
+      <Link to='/login' className='nav-item'><BiUser size='28' className='nav-icon'/></Link>
     </div>
     {
     showMenu?
@@ -39,13 +40,11 @@ return (<section className='nav'>
     }
     {
     showMenu&&<div className='menu'>
-        <a href='/#tour' className='m-nav-item'>Tour</a>
-        <a href='/#about' className='m-nav-item'>About</a>
-        <a href='/#services' className='m-nav-item'>Services</a>
-        <a href='/#contact' className='m-nav-item'>Contact</a>
-        <a href='/user' className='m-nav-item'>Order Recipe</a>
-        <a href='/chat' className='m-nav-item'>Messages {messages}</a>
-        <a href='/login' className='m-nav-item'>Login</a>
+        <Link to='/' className='m-nav-item'>Home</Link>
+        <Link to='/user' className='m-nav-item'>Order Recipe</Link>
+        <Link to='/cart' className='m-nav-item'>Checkout</Link>
+        <Link to='/chat' className='m-nav-item'>Messages {messages}</Link>
+        <Link to='/login' className='m-nav-item'>Login</Link>
     </div>
     }
   </section>)

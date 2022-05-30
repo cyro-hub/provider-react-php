@@ -11,6 +11,7 @@ import CheckConctact from '../components/Admin/CheckConctact'
 import CheckUsers from '../components/Admin/CheckUsers'
 import CheckOrders from '../components/Admin/CheckOrders'
 import '../css_pages/admin.scss'
+import {Link} from 'react-router-dom';
 
 function Admin() {
 const [show,setShow]=useState('analysis')
@@ -18,7 +19,7 @@ const [show,setShow]=useState('analysis')
   return (<div className='admin-main'>
   <section className='admin-nav'>
     <div>
-        <a href='/' className='admin-nav-item'><AiOutlineHome size='25'/></a>
+        <Link to='/' className='admin-nav-item'><AiOutlineHome size='25'/></Link>
         <span className='admin-nav-item' onClick={()=>setShow('analysis')}><SiSimpleanalytics size='25'/></span>
         <span className='admin-nav-item' onClick={()=>setShow('addRecipe')}><AiOutlineAppstoreAdd size='25'/></span>
         <span className='admin-nav-item' onClick={()=>setShow('checkUsers')}><FaUsersCog size='25'/></span>

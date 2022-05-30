@@ -1,31 +1,8 @@
 import HomeNav from "../components/HomeNav";
-import { useEffect } from "react";
 import ContactForm from "../components/Contact";
 import '../css_pages/home.scss'
 
 function Home() {
-
-// useEffect(()=>{
-//   const authentication = async()=>{
-//     await fetch('http://localhost:4500/rest/views/jwtVerify.php', {
-//     method: 'POST',
-//     headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization':JSON.parse(localStorage.getItem('token'))||''
-//     }
-//     })
-//     .then(response => response.json()).then(data=>{
-//       if(data.message){
-//         // actions.AUTHENTICATE_USER();
-//       }else{
-//         // actions.LOGOUT_USER();
-//       }
-//     }).catch(err=>{
-//       console.log(err);
-//     })
-//   }
-//   authentication();
-// },[])  
 
   return (<>
   <HomeNav/>

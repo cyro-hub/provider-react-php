@@ -1,11 +1,9 @@
 import React,{useState,useEffect,useCallback} from 'react'
 import UserNav from '../components/UserNav'
-import {GoSearch} from 'react-icons/go'
 import Card from '../components/Card'
 import '../css_pages/user.scss'
 
 function User() {
-const [showSearchLogo,setShowSearchLogo]=useState(true)
 const [searchRecipe,setSearchRecipe]=useState('')
 const [recipes,setRecipes]=useState([
     {
@@ -50,7 +48,7 @@ const handleSearch = useCallback(()=>{
 // function for the fetch api
 useEffect(()=>{
     const getRecipes =async()=>{
-        // perform searc here for backend
+        // perform search here for backend
         localStorage.setItem('recipes',JSON.stringify(recipes)) 
     }
     getRecipes()
@@ -60,9 +58,7 @@ useEffect(()=>{
 useEffect(()=>{
     handleSearch()
 },[searchRecipe,handleSearch])
-
  
-
   return (<>
   <UserNav/>
   <section className='main'>
@@ -79,7 +75,7 @@ useEffect(()=>{
     </div>
     <div className='section'>
         <div className='card-items'>
-            {recipes.map((recipe,index)=><Card key={index} obj={recipe}/>)}
+            {recipes.map((recipe,index)=><Card key={index} recipe={recipe}/>)}
         </div>
     </div>
   </section>

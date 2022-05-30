@@ -3,12 +3,13 @@ $media-desktop: "only screen and (min-width : 600px)";
 $media-mobile: "only screen and (max-width : 600px)";
 // $media-mobile-sm: "only screen and (max-width : 480px)";
 
-$text-primary:white;
-$bg-primary:#d3b666;
-$bg-secondary:#f8de97;
-$text-secondary:#1d566e;
-$warning:#ff7b00;
-$success:#199719;
+$bg-primary:#163a5f;
+$bg-secondary:hsla(0, 0%, 0%, 0.3);
+$bg-tertiary:#163b5f80;
+
+$text-primary:#ffffff;
+$text-secondary:#ffffffbf;
+$text-tertiary:#ffffff80;
 
 @media #{$media-desktop}{
     .m-nav-menu{
@@ -45,13 +46,13 @@ $success:#199719;
   }
   .m-nav-item{
       text-decoration: none;
-      color: $text-secondary;
+      color: $text-primary;
       text-align: center;
       margin: 0 1rem;
       padding-top: 10px;
-      background-color: $bg-primary;
+      background-color: $bg-tertiary;
       font-size: 1.5rem;
-      border-bottom: 0.5px solid black;
+      border-bottom: 0.5px solid gray;
   }
 }
 
