@@ -12,7 +12,7 @@ const [register,setRegister]=useState({
     password:'',
     cPassword:'',
     tel:'',
-    location:locations[0]?.town||'location unavailable'
+    location:locations?.town||'location unavailable'
 });
 
 const [login,setLogin]=useState({
@@ -141,6 +141,7 @@ useEffect(()=>{
             <div className='input-div'>
                 <select className='input' name='location' 
                 onChange={(e)=>handleChanges(e)}>
+                    <option value="" disabled selected>Your Location</option>
                     {
                      locations?.map(location=><option className='option' key={location.locationID} value={location.town}>{location.town}</option>)
                     }

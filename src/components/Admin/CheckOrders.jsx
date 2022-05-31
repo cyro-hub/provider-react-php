@@ -11,27 +11,30 @@ function CheckOrders() {
 
   return (<section className='main'>
   <h3>Orders</h3>
-  <div className='checkout-table'>
-    <div className='checkout-table-header'>
-      <h4 className='table-header'>Date</h4>
-      <h4 className='table-header'>Recipe</h4>
-      <h4 className='table-header'>Quantity</h4>
-      <h4 className='table-header'>Amount</h4>
-      <h4 className='table-header'>action</h4>
-    </div>
-    {
-      orders?.map((order)=>(
-      <div className='checkout-table-body'>
-        <h5 className='table-data'>{order.date}</h5>
-        <h5 className='table-data'>{order.recipe}</h5>
-        <h5 className='table-data'>{order.quantity}</h5>
-        <h5 className='table-data'>{order.amount}</h5>
-        {/* style this button to remove item */}
-        <h5 className='table-data'><button onClick={()=>handleRemoveOrder(order.id)}>remove</button></h5>
-      </div> 
-      ))
-    }
-  </div></section>
+  <table>
+      <thead>
+        <th>Date</th>
+        <th>Recipe</th>
+        <th>Quantity</th>
+        <th>Ammount</th>
+        <th>Location</th>
+        <th>action</th>
+      </thead>
+      <tbody>
+        {
+          orders?.map(user=><tr>
+            <td>{orders.date}</td>
+            <td>{orders.recipe}</td>
+            <td>{orders.quantity}</td>
+            <td>{orders.ammount}</td>
+            <td>{orders.location}</td>
+            <td>
+              <button onClick={()=>handleRemoveOrder(orders.id)}            className='btn_remove'>remove</button>
+            </td>
+          </tr>)
+        }
+      </tbody>
+    </table></section>
   )
 }
 

@@ -17,8 +17,7 @@ export const authenticateUser = async()=>{
               store.dispatch({type:actionTypes.authenticate})
             }
           }).catch(err=>{
-              //dispatching actions
-            store.dispatch({type:actionTypes.clearUser})
+            console.log(err.message)  
           })
 }
 
@@ -43,7 +42,12 @@ export const getUsers = async()=>{
                 payload:[]
             })
         }
-    })
+    }).catch(err=>[
+        store.dispatch({
+            type:actionTypes.viewUsers,
+            payload:[]
+        })
+    ])
 }
 
 export const login = async(user)=>{

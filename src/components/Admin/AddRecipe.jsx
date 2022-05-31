@@ -1,8 +1,11 @@
 import React,{useState,useEffect} from 'react'
+import { useSelector } from 'react-redux';
 import '../../css_components/form.scss'
 
 function AddRecipe() {
-const [locations,setLocations]=useState([]);
+// const locations = useSelector(state=>state.location.locations)
+const locations = []
+
 const [recipe,setRecipe]=useState({
   name:'',
   image:'',
@@ -66,18 +69,6 @@ useEffect(()=>{
   return ()=>clearTimeout(timer)
 })
 
-useEffect(()=>{
-  const getLocations = async()=>{
-      await fetch(`${process.env.REACT_APP_API}/location.php`).then(res=>res.json()).then(data=>{
-          if(data.status===200){
-              setLocations(data.data);
-          }else{
-              setWarning(data.message)
-          }
-      })
-  }
-  getLocations();
-},[])
   return (<>
     <form onSubmit={(e)=>handleSubmit(e)} className='form'>
       <div className='input-div'>
@@ -102,7 +93,7 @@ useEffect(()=>{
       <div className='input-div'>
         <select name="from" className='input' onChange={(e)=>handleChanges(e)} id="country">
         {
-          locations.map(location=><option className='option' key={location.locationID} value={location.town}>{location.town}</option>)
+          locations?.map(location=><option className='option' key={location.locationID} value={location.town}>{location.town}</option>)
         }
         </select>
       </div>

@@ -12,13 +12,6 @@ const userReducer=(state={users:[],auth:false},action)=>{
                 ...state,
                 auth:true
             };
-        case actionTypes.clearUser:
-            localStorage.setItem('token','');
-            return {
-                ...state,
-                auth:false
-            };
-        
         default:
             return {...state};
     }

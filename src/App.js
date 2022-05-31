@@ -18,14 +18,14 @@ useEffect(()=>{
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Home/>}/> 
-        <Route path='/login' element={<Account/>}/>
-        <Route path='/user' element={<User/>}/>
+        <Route exact path='/' element={<Home/>}/> 
+        <Route exact path='/login' element={<Account/>}/>
+        <Route exact path='/user' element={<User/>}/>
+        <Route exact path='/admin' element={<Admin/>}/>
+          <Route exact path='/cart' element={<Checkout/>}/>
         <Route element={<ProtectedRoute/>}>
-          <Route path='/chat' element={<Chat/>}/>
-          <Route path='/cart' element={<Checkout/>}/>
+          <Route exact path='/chat' element={<Chat/>}/>
         </Route>
-        <Route path='/admin' element={<Admin/>}/>
       </Routes>
     </Router>
   );

@@ -1,11 +1,11 @@
 import {useSelector} from 'react-redux';
+import { useState } from 'react';
 import UserNav from '../components/UserNav'
 import '../css_pages/checkout.scss'
 import * as actions from '../redux/actions/cartActions'
 
 function Checkout() {
-const cart = useSelector(state=>state);
-console.log(cart);
+const cart = useSelector(state=>state.cart.cart);
 
 function handleRemoveRecipe(id){
   actions.removeFromCart(id)
@@ -15,27 +15,31 @@ function handleRemoveRecipe(id){
   <UserNav/>
   <section className='main'>
     <h3>Checkout</h3>
-    <div className='checkout-table'>
-      <div className='checkout-table-header'>
-        <h4 className='table-header'>Recipe</h4>
-        <h4 className='table-header'>Quantity</h4>
-        <h4 className='table-header'>Amount</h4>
-        <h4 className='table-header'>action</h4>
-      </div>
-      {
-        cart?.map((recipe,index)=>(
-        <div className='checkout-table-body'>
-          <h5 className='table-data'>fgs</h5>
-          <h5 className='table-data'>sdfgdgs</h5>
-          <h5 className='table-data'>dfgs</h5>
-          {/* style this button to remove item */}
-          <h5 className='table-data'><button onClick={()=>handleRemoveRecipe(recipe.id)}>remove</button></h5>
-        </div> 
-        ))
-      }
-    </div>
+    <table>
+      <thead>
+        <th>List</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th>Action</th>
+      </thead>
+      <tbody>
+        {
+          cart?.map(item=><tr>
+            <td>{item.name}</td>
+            <td>{item.price}</td>
+            <td>
+              {/* check the input function to handle order quantity  */}
+              <input type="number" name='quantity'/>
+            </td>
+            <td>
+              <button onClick={()=>handleRemoveRecipe(item.id)}            className='btn_remove'>remove</button>
+            </td>
+          </tr>)
+        }
+      </tbody>
+    </table>
     <div className='div-btn'>
-      <button className='checkout'>checkout</button>
+      <button className='checkout btn'>checkout</button>
     </div>
   </section>
   </>)

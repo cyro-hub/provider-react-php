@@ -60,28 +60,26 @@ return (
     <button className='swap' onClick={()=>setShowLocation(true)}>Show Locations</button>
   </div>
   </form>}
-  {showLocation&&<div className='checkout-table'>
-  <h3>Locations</h3>
-    <TiArrowBack onClick={()=>setShowLocation(false)} className='back-btn'/>
-    <div>{warning&&<p className='warning'>{warning}</p>}</div>
-    <div>{success&&<p className='success'>{success}</p>}</div>
-    <div className='checkout-table-header'>
-      <h4 className='table-header'>#</h4>
-      <h4 className='table-header'>Region</h4>
-      <h4 className='table-header'>Town</h4>
-      <h4 className='table-header'>action</h4>
-    </div>
-    {
-      locations?.map((location,i)=>(
-      <div className='checkout-table-body'>
-        <h5 className='table-data'>{i+1}</h5>
-        <h5 className='table-data'>{location.region}</h5>
-        <h5 className='table-data'>{location.town}</h5>
-        <h5 className='table-data'><button className='remove' onClick={()=>handleRemoveLocation(location.locationID)}>remove</button></h5>
-      </div> 
-      ))
-    }
-  </div>}
+  {showLocation&&<>
+  <TiArrowBack onClick={()=>setShowLocation(false)} className='back-btn'/>
+  <table>
+      <thead>
+        <th>Region</th>
+        <th>Town</th>
+        <th>action</th>
+      </thead>
+      <tbody>
+        {
+          locations?.map(user=><tr>
+            <td>{locations.region}</td>
+            <td>{locations.town}</td>
+            <td>
+              <button onClick={()=>handleRemoveLocation(locations.locationID)}            className='btn_remove'>remove</button>
+            </td>
+          </tr>)
+        }
+      </tbody>
+    </table></>}
   </>)
 }
 
