@@ -1,11 +1,9 @@
-import React,{useState} from 'react'
 import {useSelector} from 'react-redux';
 import UserNav from '../components/UserNav'
 import '../css_pages/checkout.scss'
-import * as actions from '../redux/actions'
+import * as actions from '../redux/actions/cartActions'
 
 function Checkout() {
-const [cartList,setCartList]=useState([])
 const cart = useSelector(state=>state);
 console.log(cart);
 
@@ -25,7 +23,7 @@ function handleRemoveRecipe(id){
         <h4 className='table-header'>action</h4>
       </div>
       {
-        cartList.map((recipe,index)=>(
+        cart?.map((recipe,index)=>(
         <div className='checkout-table-body'>
           <h5 className='table-data'>fgs</h5>
           <h5 className='table-data'>sdfgdgs</h5>

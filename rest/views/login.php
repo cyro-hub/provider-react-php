@@ -32,3 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
 
     $user->removeUser($id);
 }
+
+//getting users form the database
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+
+    $user->getUsers();
+    
+}

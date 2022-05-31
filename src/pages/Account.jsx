@@ -1,17 +1,18 @@
 import React,{useState,useEffect} from 'react'
+import { useSelector } from 'react-redux';
 import HomeNav from '../components/HomeNav'
-import * as actions from '../redux/actions'
+import * as actions from '../redux/actions/userActions'
 import User from './User';
 
 function Account() {
-const [locations,setLocations]=useState([]);
+const locations = useSelector(state=>state.location)
 const [register,setRegister]=useState({
     name:'',
     email:'',
     password:'',
     cPassword:'',
     tel:'',
-    location:locations?.town||'location unavailable'
+    location:locations[0]?.town||'location unavailable'
 });
 
 const [login,setLogin]=useState({
@@ -40,44 +41,30 @@ const handleRegister=async(e)=>{
           setWarning(`${key} is empty`)
         }
       }
-
-    await fetch(`${process.env.REACT_APP_API}/register.php`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(register),
-        })
-        .then(response => response.json())
+      actions.register(register)
         .then(data => {
             if(data.status!==200){
                 setWarning(data.message)
+            }else{
+                setShowRegister(true)
             }
         })
      
 }
 
-const handleLogin=async(e)=>{
+const handleLogin = (e)=>{
     e.preventDefault();
 
-    await fetch(`${process.env.REACT_APP_API}/login.php`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(login),
-        })
-        .then(response => response.json())
-        .then(data => {
-            if(data.status===200){
-                localStorage.setItem('token',JSON.stringify(data.data));
-                actions.authenticateUser();
-                setSuccess(data.message)
-                setNavigateToUser(true)
-            }else{
-                setWarning(data.message)
-            }
-        })
+    actions.login(login).then(data=>{
+        if(data.status===200){
+            localStorage.setItem('token',JSON.stringify(data.data));
+            actions.authenticateUser();
+            setSuccess(data.message)
+            setNavigateToUser(true)
+        }else{
+            setWarning(data.message)
+        }
+    })
 }
 
 
@@ -97,19 +84,6 @@ useEffect(()=>{
     },4000)
     return ()=>clearTimeout(timer)
 })
-
-useEffect(()=>{
-    const getLocations = async()=>{
-        await fetch(`${process.env.REACT_APP_API}/location.php`).then(res=>res.json()).then(data=>{
-            if(data.status===200){
-                setLocations(data.data);
-            }else{
-                setWarning(data.message)
-            }
-        })
-    }
-    getLocations();
-},[])
 
   return (<>{navigateToUser?<User/>:<>
   <HomeNav/>
@@ -168,7 +142,7 @@ useEffect(()=>{
                 <select className='input' name='location' 
                 onChange={(e)=>handleChanges(e)}>
                     {
-                     locations.map(location=><option className='option' key={location.locationID} value={location.town}>{location.town}</option>)
+                     locations?.map(location=><option className='option' key={location.locationID} value={location.town}>{location.town}</option>)
                     }
                 </select>
             </div>

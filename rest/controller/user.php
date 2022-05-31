@@ -101,6 +101,17 @@ public function verifyToken($jwt){
         echo json_encode(['message'=>false,'status'=>404],true);
     }
 }
+
+public function getUsers(){
+    $sql = 'select * from users';
+
+    if($this->readDB($sql)){
+        $data = $this->readDB($sql);
+        echo json_encode(['data'=>$data,'message'=>'Successfully read the Database','status'=>200],true);
+    }else{
+        echo json_encode(['data'=>[],'message'=>'Could not get users from the Database','status'=>404],true);
+    }
+}
 }
 
 ?>

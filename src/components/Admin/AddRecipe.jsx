@@ -22,9 +22,10 @@ const handleChanges=(e)=>{
     return;
   }
   if(e.target.name === 'image'){
-    if (e.target.value.match(/\.(jpg|jpeg|png|gif)$/)) {
+    if(e.target.value.match(/\.(jpg|jpeg|png|gif)$/)) {
+      setImageSelected(true);
       setRecipe({...recipe,[e.target.name]:e.target.files[0]})
-     return;
+      return;
     }else{
       setWarning('Please select valid image (jpg,jpeg,png,gif)')
       return;
@@ -32,7 +33,7 @@ const handleChanges=(e)=>{
   }
   setRecipe({...recipe,[e.target.name]:e.target.value})
 }
-console.log(recipe)
+
 const handleSubmit=async(e)=>{
   e.preventDefault()
   for(const key in recipe){
@@ -41,19 +42,20 @@ const handleSubmit=async(e)=>{
       return;
     }
   }
-  await fetch(`${process.env.REACT_APP_API}/recipe.php`, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(recipe),
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data)
-    }).catch(err=>{
-      console.error(err.message)
-    })
+// console.log(URL.createObjectURL(recipe.image))
+  // await fetch(`${process.env.REACT_APP_API}/recipe.php`, {
+  //   method: 'POST',
+  //   headers: {
+  //       'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify(recipe),
+  //   })
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     console.log(data)
+  //   }).catch(err=>{
+  //     console.error(err.message)
+  //   })
 }
 
 useEffect(()=>{
@@ -89,7 +91,8 @@ useEffect(()=>{
         <input type="text" className='input' name='name' id='name' placeholder='Name' value={recipe.name} onChange={(e)=>handleChanges(e)}/>
       </div>
       <div className='input-div'>
-        <label htmlFor="image" className='submit contact'>{imageSelected?'Image selected':'Select an Image'}
+        <label htmlFor="image" className='submit contact'>
+          {imageSelected?<img className='selected-image' src={URL.createObjectURL(recipe.image)} alt='selected img'/>:'Select an Image'}
           <input type="file"  className='input' name='image' id='image' onChange={(e)=>handleChanges(e)} style={{display:'none'}} />
         </label>
       </div>
@@ -115,7 +118,7 @@ useEffect(()=>{
         <textarea  className='input-textarea' name="des" id="des" placeholder='Description' cols="30" rows="6" onChange={(e)=>handleChanges(e)} value={recipe.des}></textarea>
       </div>
       <div className='input-div'>
-        <button type='submit' className='submit contact'>Add</button>
+        <button type='submit' className='submit contact'>Add Recipe</button>
       </div>
     </form>
   </>)

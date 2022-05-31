@@ -6,13 +6,20 @@ $text-primary:#ffffff;
 $text-secondary:#ffffffbf;
 $text-tertiary:#ffffff80;
 
+$warning:#f17917;
+
 $media-mobile: "only screen and (max-width : 600px)";
+.display-container{
+    overflow-y: scroll;
+}
 
 .checkout-table{
     background-color: $bg-secondary;
     width:40rem;
     margin: 0 auto;
     padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
     border-radius: 8px;
 
     .checkout-table-header,.checkout-table-body{
@@ -25,6 +32,8 @@ $media-mobile: "only screen and (max-width : 600px)";
     }
     .checkout-table-header{
         border-bottom: 0.5px solid gray;
+        position: sticky;
+        top: 2rem;
     }
     .checkout-table-body{
         background-color: $bg-tertiary;
@@ -47,6 +56,11 @@ $media-mobile: "only screen and (max-width : 600px)";
 }
 .checkout:hover{
     background-color:$bg-secondary;
+}
+.remove{
+    color: $warning;
+    background: transparent;
+    border: none;
 }
 
 @media #{$media-mobile}{

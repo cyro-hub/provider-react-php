@@ -1,9 +1,10 @@
 import React from 'react'
 import {BsFillCartFill} from 'react-icons/bs'
-import * as actions from '../redux/actions';
+import * as actions from '../redux/actions/cartActions';
 import '../css_components/card.scss'
 
 function Card({recipe}) {
+  
 const handleAddToCart=(recipe)=>{
   actions.addToCart(recipe);
 }

@@ -72,24 +72,18 @@ $media-mobile: "only screen and (max-width : 600px)";
             width: 14px;
             height: 14px;
             margin-left: 0.5rem;
+            margin-top: 5px;
         }
     }
 }
 
-// ::-webkit-input-placeholder { /* Edge */
-//     color: rgba(0, 0, 0, 0.7);
-//   }
-  
-//   :-ms-input-placeholder { /* Internet Explorer */
-//     color: rgba(0, 0, 0, 0.7);
-//   }
-  
-//   ::placeholder {
-//     color: rgba(0, 0, 0, 0.7);
-//   }
+.selected-image{
+    width:80%;
+    height: 180px;
+}
 
-  @media #{$media-mobile}{
-      .form{
-          width: 95%;
-      }
-  }
+@media #{$media-mobile}{
+    .form{
+        width: 95%;
+    }
+}

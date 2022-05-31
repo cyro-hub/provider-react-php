@@ -7,29 +7,13 @@ import Checkout from './pages/Checkout';
 import Chat from './pages/Chat';
 import Admin from './pages/Admin';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
-import * as actions from './redux/actions';
+import * as actions from './redux/actions/userActions';
 
 function App() {
-  
-  useEffect(()=>{
-    const auth = async()=>{
-      await fetch(`${process.env.REACT_APP_API}/jwtVerify.php`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization':JSON.parse(localStorage.getItem('token'))||''
-        }
-        })
-        .then(response => response.json()).then(data=>{
-          if(data.message){
-            actions.authenticateUser();
-          }
-        }).catch(err=>{
-            actions.clearUser();
-        })
-    }
-    auth()
-  },[])
+
+useEffect(()=>{
+  actions.authenticateUser()
+},[])
 
   return (
     <Router>
