@@ -13,4 +13,14 @@ export const removeFromOrders = 'REMOVE_FROM_ORDERS'
 export const removeFromContactMessage = 'REMOVE_FROM_CONTACT_MESSAGES'
 
 // location action types
-export const removeFromLocation = 'REMOVE_FROM_LOCATION'
+export const getLocations = 'GET_LOCATIONS';
+export const removeFromLocation = 'REMOVE_FROM_LOCATION';
+export const removeSuccess = 'REMOVE_SUCCESS'
+
+//contact actions types
+export const addContact = 'ADD_CONTACT';
+export const getContacts = 'GET_CONTACTS'
+export const removeContact = 'REMOVE_CONTACT'
+
+//unknown action type
+export const unknown = 'UNKNOWN'

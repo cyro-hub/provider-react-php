@@ -5,7 +5,7 @@ import * as actions from '../redux/actions/userActions'
 import User from './User';
 
 function Account() {
-const locations = useSelector(state=>state.location)
+const locations = useSelector(state=>state.location.locations)
 const [register,setRegister]=useState({
     name:'',
     email:'',
@@ -16,6 +16,7 @@ const [register,setRegister]=useState({
 });
 
 const [login,setLogin]=useState({
+    login:true,
     email:'',
     password:''
 });
@@ -25,7 +26,7 @@ const [warning,setWarning]=useState('');
 const [success,setSuccess]=useState('');
 const [navigateToUser,setNavigateToUser]=useState(null)
 
-const handleRegister=async(e)=>{
+const handleRegister=(e)=>{
     e.preventDefault();
 
     if(!register.password.match(passwordPattern)){
@@ -58,9 +59,8 @@ const handleLogin = (e)=>{
     actions.login(login).then(data=>{
         if(data.status===200){
             localStorage.setItem('token',JSON.stringify(data.data));
-            actions.authenticateUser();
-            setSuccess(data.message)
-            setNavigateToUser(true)
+            actions.loginAuth();
+            setNavigateToUser(true);
         }else{
             setWarning(data.message)
         }
@@ -141,7 +141,7 @@ useEffect(()=>{
             <div className='input-div'>
                 <select className='input' name='location' 
                 onChange={(e)=>handleChanges(e)}>
-                    <option value="" disabled selected>Your Location</option>
+                    <option value="" disabled >Your Location</option>
                     {
                      locations?.map(location=><option className='option' key={location.locationID} value={location.town}>{location.town}</option>)
                     }

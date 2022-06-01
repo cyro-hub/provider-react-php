@@ -3,8 +3,7 @@ import { useSelector } from 'react-redux';
 import '../../css_components/form.scss'
 
 function AddRecipe() {
-// const locations = useSelector(state=>state.location.locations)
-const locations = []
+const locations = useSelector(state=>state.location.locations)
 
 const [recipe,setRecipe]=useState({
   name:'',

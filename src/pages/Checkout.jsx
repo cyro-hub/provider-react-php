@@ -17,10 +17,12 @@ function handleRemoveRecipe(id){
     <h3>Checkout</h3>
     <table>
       <thead>
-        <th>List</th>
-        <th>Price</th>
-        <th>Qty</th>
-        <th>Action</th>
+        <tr>
+          <th>List</th>
+          <th>Price</th>
+          <th>Qty</th>
+          <th>Action</th>
+        </tr>
       </thead>
       <tbody>
         {

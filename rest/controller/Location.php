@@ -1,6 +1,5 @@
 <?php
 include '../model/database.php';
-include '../vendor/autoload.php';
 
 class Location extends Database{
     public $region;
@@ -13,7 +12,13 @@ class Location extends Database{
         $sql = "insert into Location(region,town) values('$this->region','$this->town')";
 
         if($this->insertDB($sql)){
-            echo json_encode(['message'=>'Inserted location successful','status'=>200],true);
+            $sql = 'select * from Location';
+            $data = $this->readDB($sql);
+            if($data){
+                echo json_encode(['data'=>$data,'message'=>'Location added successfully','status'=>200],true);
+            }else{
+                echo json_encode(['message'=>'Failed to read Location updates','status'=>404],true);
+            }
         }else{
             echo json_encode(['message'=>'Failed to add location','status'=>404],true);
         }
@@ -31,20 +36,16 @@ class Location extends Database{
         }
     }
 
-    public function updateLocation($region,$town,$id){
-        $sql = "update Location set region = '$region',town = '$town' where locationID = $id";
-        if($this->insertDB($sql)){
-            echo json_encode(['message'=>'Location updated successfully','status'=>200],true);
-        }else{
-            echo json_encode(['message'=>'Failed to update location','status'=>404],true);
-        }
-        return;
-    }
-
     public function deleteLocation($id){
-        $sql = "delete Location where locationID=$id";
+        $sql = "delete from Location where locationID=$id";
         if($this->insertDB($sql)){
-            echo json_encode(['message'=>'Location deleted successfully','status'=>200],true);
+            $sql = 'select * from Location';
+            $data = $this->readDB($sql);
+            if($data){
+                echo json_encode(['data'=>$data,'message'=>'Location remove successfully','status'=>200],true);
+            }else{
+                echo json_encode(['message'=>'Failed to read Location updates','status'=>404],true);
+            }
         }else{
             echo json_encode(['message'=>'Failed to delete location','status'=>404],true);
         }

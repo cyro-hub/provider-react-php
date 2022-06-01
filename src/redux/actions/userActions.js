@@ -4,6 +4,8 @@ import store from '../store'
 
 // USER ACTIONS
 
+
+// authenticate from web entring
 export const authenticateUser = async()=>{
     return await fetch(`${process.env.REACT_APP_API}/jwtVerify.php`, {
         method: 'POST',
@@ -17,20 +19,48 @@ export const authenticateUser = async()=>{
               store.dispatch({type:actionTypes.authenticate})
             }
           }).catch(err=>{
-            console.log(err.message)  
+            store.dispatch({
+                type:actionTypes.unknown
+            })
           })
 }
 
-export const removeFromUsers = async(id)=>{
-    //perform some fetch operartion to remove user
-    store.dispatch({
-        type:actionTypes.removeFromUsers,
-        payload:id
-    })
+// authenticate from login 
+export const loginAuth=()=>{
+    store.dispatch({type:actionTypes.authenticate})
 }
 
+export const removeFromUsers = async(id)=>{
+    return await fetch(`${process.env.REACT_APP_API}/user.php`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization':''
+        },
+        body: JSON.stringify({userID:id}),
+        })
+        .then(response => response.json())
+        .then(data=>{
+            if(data.status===200){
+                store.dispatch({
+                    type:actionTypes.viewUsers,
+                    payload:data.data
+                })
+            }else{
+                store.dispatch({
+                    type:actionTypes.viewUsers,
+                    payload:[]
+                })
+            }
+        }).catch(err=>[
+            store.dispatch({
+                type:actionTypes.unknown
+            })
+        ])
+    }
+
 export const getUsers = async()=>{
-    fetch(`${process.env.REACT_APP_API}/login.php`).then(res=>res.json()).then(data=>{
+    fetch(`${process.env.REACT_APP_API}/user.php`).then(res=>res.json()).then(data=>{
         if(data.status===200){
             store.dispatch({
                 type:actionTypes.viewUsers,
@@ -51,10 +81,11 @@ export const getUsers = async()=>{
 }
 
 export const login = async(user)=>{
-    return await fetch(`${process.env.REACT_APP_API}/login.php`, {
+    return await fetch(`${process.env.REACT_APP_API}/user.php`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization':'login'
         },
         body: JSON.stringify(user),
         })
@@ -62,10 +93,11 @@ export const login = async(user)=>{
 }
 
 export const register = async(user)=>{
-    return await fetch(`${process.env.REACT_APP_API}/register.php`, {
+    return await fetch(`${process.env.REACT_APP_API}/user.php`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization':'register'
         },
         body: JSON.stringify(user),
         })

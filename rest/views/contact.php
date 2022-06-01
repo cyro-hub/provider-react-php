@@ -5,32 +5,33 @@ header('Access-Control-Allow-Method:*');
 header("Access-Control-Allow-Headers: *");
 header('Content-Type:application/json');
 
-include '../controller/Location.php';
+include '../controller/Contact.php';
 
-$location = new Location();
+$contact = new Contact();
 
 $data = json_decode(file_get_contents("php://input", true));
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
     $allheaders=getallheaders();
     $authorization = $allheaders['Authorization'];
-   
-    if($authorization==='location'){
+
+    if($authorization==='contact'){
         $region = htmlentities($data->region);
+        $name = htmlentities($data->name);
         $town = htmlentities($data->town);
-        //posting locations into the database
-        $location->addLocation($region,$town);
+        $message = htmlentities($data->message);
+
+        $contact->addContactInfo($name,$region,$town,$message);
     }else{
-        $id = htmlentities($data->locationID);
-        //removing location from the database
-        $location->deleteLocation($id);
+        $id = htmlentities($data->contactID);
+
+        $contact->deleteContact($id);
     }
-    
 }
 
+if($_SERVER['REQUEST_METHOD']=='GET'){
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-
-    $location->getLocations();
+    $contact->getContacts();
 
 }

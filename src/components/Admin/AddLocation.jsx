@@ -7,14 +7,13 @@ import * as actions from '../../redux/actions/locationActions'
 
 function AddLocation() {
 const [warning,setWarning]=useState('');
-const [success,setSuccess]=useState('');
 const [showLocation,setShowLocation]=useState(false);
 const [location,setLocation]=useState({
   region:'',
   town:''
 })
-const locations = useSelector(state=>state.location);
-console.log(locations);
+const locations = useSelector(state=>state.location.locations);
+const success = useSelector(state=>state.location.success)
 
 const handleChanges=e=>{
   setLocation({...location,[e.target.name]:e.target.value})
@@ -29,26 +28,34 @@ const handleSubmit=async(e)=>{
       return;
     }
   }
+
+  actions.addLocation(location)
+  setShowLocation(true);
+  setLocation({
+    region:'',
+    town:''
+  })
 }
 
 useEffect(()=>{
   const timer = setTimeout(()=>{
     setWarning('')
-    setSuccess('')
+    actions.removeSuccess()
   },4000)
   return ()=>clearTimeout(timer)
 })
 
+// handling the removal of locations
 const handleRemoveLocation = async(id)=>{
   actions.removeFromLocation(id)
 }
+
 return (
   <>{!showLocation&&<form onSubmit={(e)=>handleSubmit(e)} className='form'>
   <div className='input-div'>
     <h3>Add Location</h3>
   </div>
   <div>{warning&&<p className='warning'>{warning}</p>}</div>
-  <div>{success&&<p className='success'>{success}</p>}</div>
   <div className='input-div'>
     <input type="text" className='input' name='region' id='region' placeholder='Region' value={location.region} onChange={(e)=>handleChanges(e)}/>
   </div>
@@ -62,24 +69,29 @@ return (
   </form>}
   {showLocation&&<>
   <TiArrowBack onClick={()=>setShowLocation(false)} className='back-btn'/>
+  <section className='main'>
+  <h3>Locations</h3>
+  <div>{success&&<p className='success'>{success}</p>}</div>
   <table>
       <thead>
-        <th>Region</th>
-        <th>Town</th>
-        <th>action</th>
+        <tr>
+          <th>Region</th>
+          <th>Town</th>
+          <th className='action'>action</th>
+        </tr>
       </thead>
       <tbody>
         {
-          locations?.map(user=><tr>
-            <td>{locations.region}</td>
-            <td>{locations.town}</td>
-            <td>
-              <button onClick={()=>handleRemoveLocation(locations.locationID)}            className='btn_remove'>remove</button>
+          locations?.map(location=><tr key={location.locationID}>
+            <td>{location.region}</td>
+            <td>{location.town}</td>
+            <td className='action'>
+              <button onClick={()=>handleRemoveLocation(location.locationID)} className='btn_remove'>remove</button>
             </td>
           </tr>)
         }
       </tbody>
-    </table></>}
+    </table></section></>}
   </>)
 }
 

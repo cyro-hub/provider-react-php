@@ -1,4 +1,6 @@
 import React,{useState,useEffect} from 'react';
+import { useSelector } from 'react-redux';
+import * as actions from '../redux/actions/contactActions'
 import '../css_components/form.scss'
 
 function Contact() {
@@ -8,7 +10,8 @@ const [contact,setContact]=useState({
     town:'',
     message:''
 });
-const [warning,setWarning]=useState('')
+const [warning,setWarning]=useState('');
+const success = useSelector(state=>state.contact.success);
 
 const handleChanges=(e)=>{
     setContact({...contact,[e.target.name]:e.target.value})
@@ -20,16 +23,25 @@ const handleSubmit=(e)=>{
         setWarning('Either the name,Region,Town,Message field is empty')
         return
     }
+    actions.addContact(contact);
+    setContact({
+        name:'',
+        region:'',
+        town:'',
+        message:''
+    })
 }
 
 useEffect(()=>{
     const timer = setTimeout(()=>{
         setWarning('')
+        actions.removeSuccess()
     },4000)
     return ()=>clearTimeout(timer)
 })
   return (<form onSubmit={(e)=>handleSubmit(e)} className='form'>
       <div className='input-div'>{warning&&<p className='warning'>{warning}</p>}</div>
+      <div>{success&&<p className='success'>{success}</p>}</div>
       <div className='input-div'>
           <input className='input' type="text" name='name' 
           value={contact.name} 

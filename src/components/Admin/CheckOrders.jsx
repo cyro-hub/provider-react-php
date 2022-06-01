@@ -13,12 +13,14 @@ function CheckOrders() {
   <h3>Orders</h3>
   <table>
       <thead>
-        <th>Date</th>
-        <th>Recipe</th>
-        <th>Quantity</th>
-        <th>Ammount</th>
-        <th>Location</th>
-        <th>action</th>
+        <tr>
+          <th>Date</th>
+          <th>Recipe</th>
+          <th>Quantity</th>
+          <th>Ammount</th>
+          <th>Location</th>
+          <th>action</th>
+        </tr>
       </thead>
       <tbody>
         {
@@ -29,7 +31,7 @@ function CheckOrders() {
             <td>{orders.ammount}</td>
             <td>{orders.location}</td>
             <td>
-              <button onClick={()=>handleRemoveOrder(orders.id)}            className='btn_remove'>remove</button>
+              <button onClick={()=>handleRemoveOrder(orders.id)} className='btn_remove'>remove</button>
             </td>
           </tr>)
         }

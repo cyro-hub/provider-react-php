@@ -74,7 +74,13 @@ public function removeUser($userID){
     $sql = "delete from users where userID=$userID";
 
     if($this->insertDB($sql)){//using the insert function from the Database class to delete user
-        echo json_encode(['message'=>'User remove successfully','status'=>200],true);
+        $sql = 'select * from users';
+        $data = $this->readDB($sql);
+        if($data){
+            echo json_encode(['data'=>$data,'message'=>'User remove successfully','status'=>200],true);
+        }else{
+            echo json_encode(['message'=>'Failed to read user update','status'=>404],true);
+        }
     }else{
         echo json_encode(['message'=>'Failed to remove user','status'=>404],true);
     }

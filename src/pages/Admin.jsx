@@ -14,13 +14,17 @@ import CheckOrders from '../components/Admin/CheckOrders'
 import '../css_pages/admin.scss'
 import {Link} from 'react-router-dom';
 import AddLocation from '../components/Admin/AddLocation';
-import * as actions from '../redux/actions/userActions';
+import * as user from '../redux/actions/userActions';
+import * as location from '../redux/actions/locationActions'
+import * as contact from '../redux/actions/contactActions'
 
 function Admin() {
 const [show,setShow]=useState('analysis')
 
 useEffect(()=>{
-  actions.getUsers()
+  user.getUsers()
+  location.getLocations()
+  contact.getContacts()
 },[])
 
   return (<div className='admin-main'>
