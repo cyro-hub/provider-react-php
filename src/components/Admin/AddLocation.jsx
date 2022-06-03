@@ -80,7 +80,7 @@ return (
           <th className='action'>action</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className='scroll'>
         {
           locations?.map(location=><tr key={location.locationID}>
             <td>{location.region}</td>

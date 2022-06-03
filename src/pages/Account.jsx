@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { useSelector } from 'react-redux';
 import HomeNav from '../components/HomeNav'
-import * as actions from '../redux/actions/userActions'
+import * as users from '../redux/actions/userActions'
 import User from './User';
 
 function Account() {
@@ -42,7 +42,7 @@ const handleRegister=(e)=>{
           setWarning(`${key} is empty`)
         }
       }
-      actions.register(register)
+      users.register(register)
         .then(data => {
             if(data.status!==200){
                 setWarning(data.message)
@@ -56,10 +56,10 @@ const handleRegister=(e)=>{
 const handleLogin = (e)=>{
     e.preventDefault();
 
-    actions.login(login).then(data=>{
+    users.login(login).then(data=>{
         if(data.status===200){
             localStorage.setItem('token',JSON.stringify(data.data));
-            actions.loginAuth();
+            users.loginAuth();
             setNavigateToUser(true);
         }else{
             setWarning(data.message)

@@ -22,5 +22,10 @@ export const addContact = 'ADD_CONTACT';
 export const getContacts = 'GET_CONTACTS'
 export const removeContact = 'REMOVE_CONTACT'
 
+//chat action types
+export const getMessages = 'GET_MESSAGES';
+export const sendMessage = 'SEND_MESSAGE';
+export const getUsers = 'GET_USERS';
+
 //unknown action type
 export const unknown = 'UNKNOWN'

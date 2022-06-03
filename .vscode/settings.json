@@ -1,0 +1,9 @@
+{
+    "prettier.insertPragma": true,
+    "prettier.enableDebugLogs": true,
+    "prettier.jsxBracketSameLine": true,
+    "prettier.jsxSingleQuote": true,
+    "prettier.requireConfig": true,
+    "prettier.requirePragma": true,
+    "prettier.resolveGlobalModules": true
+}

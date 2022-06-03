@@ -7,12 +7,14 @@ import Checkout from './pages/Checkout';
 import Chat from './pages/Chat';
 import Admin from './pages/Admin';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
-import * as actions from './redux/actions/userActions';
+import * as user from './redux/actions/userActions';
+import * as area from './redux/actions/locationActions'
 
 function App() {
 
 useEffect(()=>{
-  actions.authenticateUser()
+  user.authenticateUser();
+  area.getLocations();
 },[])
 
   return (
@@ -22,9 +24,9 @@ useEffect(()=>{
         <Route exact path='/login' element={<Account/>}/>
         <Route exact path='/user' element={<User/>}/>
         <Route exact path='/admin' element={<Admin/>}/>
-          <Route exact path='/cart' element={<Checkout/>}/>
         <Route element={<ProtectedRoute/>}>
           <Route exact path='/chat' element={<Chat/>}/>
+          <Route exact path='/cart' element={<Checkout/>}/>
         </Route>
       </Routes>
     </Router>

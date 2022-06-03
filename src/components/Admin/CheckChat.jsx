@@ -1,40 +1,27 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useRef} from 'react';
 import {MdLocationOn,MdSend} from 'react-icons/md'
+import { useSelector } from 'react-redux';
 import '../../css_components/css_admin/checkchat.scss'
+import * as actions from '../../redux/actions/chatActions'
 
 function CheckChat() {
+const bottomMessage = useRef();
+
 const [message,setMessage]=useState({
-    id:(new Date()).toString(),
     message:'',
-    role:'username',
-    date:(new Date()).toDateString(),
-    name:'admin'
+    location:''
 });
+const [email,setEmail]=useState('');
 const [search,setSearch]=useState('');
-const [names,setNames]=useState([
-  {name:'Ali'},
-  {name:'musa'},
-  {name:'Ali'},
-  {name:'musa'},
-  {name:'Ali'},
-  {name:'musa'},
-]);
-const [chats,setChats]=useState([{id:1,
-  name:'syril',
-  role:'user',
-  message:"this is a messsage",
-  location:'',
-  date:'11/12/21'},
-  {id:2,
-    name:'admin',
-    role:'admin',
-    message:"asdff dfewr dfsfsf",
-    location:'',
-    date:'11/12/21'}]);
-const [name,setName]=useState('')
+const users = useSelector(state => state.chat.users)
+const chats = useSelector(state => state.chat.chats);
 
 const handleSend=async()=>{
-    console.log((new Date()).toDateString())
+  actions.sendMessageByAdmin({...message,email:email})
+  setMessage({
+    message:'',
+    location:''
+})
 }
     
 const handleLocation=async()=>{
@@ -47,36 +34,39 @@ const handleMessage=(e)=>{
   setMessage({...message,[e.target.name]:e.target.value})
 }
 
-const viewChat=(name)=>{
-  // perform a the fetch to the database with the particular chat
-  setName(name);
+const viewChat=(email)=>{
+  setEmail(email);
+  actions.getChatsByEmail(email)
 }
+useEffect(()=>{
+  bottomMessage.current?.scrollIntoView({ behavior: "smooth" })
+},[chats])
 
 useEffect(()=>{
-  // make a fetch to return all the chats
-
-},[name])
+  const timer = setInterval(()=>{
+    actions.getUsers();
+    actions.getChatsByEmail(email)
+  },500)
+  return ()=>clearInterval(timer)
+})
 
   return (<section className='main chat admin'>
-    <h1 className='section-header'>Chats</h1>
+    <h3>Chats</h3>
       <input type="search" placeholder='search' name="search"   onChange={(e)=>setSearch(e.target.value)} id='search'   className='search' value={search}/>
       {/* name of chats  */}
     <div className='chat-body'>
       <div className='chat-names scroll'>
       {
-        names.map((name,index)=>
-          <div key={index} onClick={()=>viewChat(name.name)} className='name'>
-            <h1 className=''>{name.name}</h1>
-            <p className=''>last message 
-              {/* use map for mapping 2 words and display the others with a triple dot  */}
-            </p>
+        users?.map((user,index)=>
+          <div key={index} onClick={()=>viewChat(user.email)} className='name'>
+            <h1 className=''>{user.userName}</h1>
           </div>)
       }
       </div>
       {/* name of chats  */}
       <div className='chats scroll'>
       {
-        chats.map(chat=><React.Fragment key={chat.id}>
+        chats?.map(chat=><React.Fragment key={chat.chatID}>
           {chat.role==='admin'&&<p className='message message-right'>
             <span className='user-right'>{chat.name}</span>
               {chat.message}
@@ -88,15 +78,22 @@ useEffect(()=>{
             <span className='date-right'>{chat.date}</span>
           </p>}
           </React.Fragment>)}
+          <p className='message' ref={bottomMessage}></p>
       </div>
     </div>
   <div className='message-send'>
         <MdLocationOn onClick={()=>handleLocation()} className='send-icon' size='20'/>
         <input type="text" 
                name='message' 
-               id='message' 
+               id='message'
+               value={message.message}
                onChange={e=>handleMessage(e)} 
-               className='message-input'/>
+               className='message-input'
+               onKeyDown={(e)=>{
+                 if(e.keyCode === 13){
+                   handleSend()
+                 }
+               }}/>
         <MdSend onClick={()=>handleSend()} className='send-icon' size='20'/>
       </div>
 </section>)

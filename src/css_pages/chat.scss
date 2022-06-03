@@ -68,6 +68,7 @@ $text-tertiary:#ffffff80;
         flex-direction:column;
         line-height: 15px;
         color: $text-secondary;
+        position: relative;
     }
     .message-left{
         float: left;
@@ -81,6 +82,7 @@ $text-tertiary:#ffffff80;
     }
     .message-right{
         margin-left: auto;
+        width: 100%;
         border-radius: 8px;
         text-align: right;
         background-color: $bg-secondary;
@@ -104,6 +106,9 @@ $text-tertiary:#ffffff80;
         width: 100%;
         text-align: right;
     }
+}
+.chat-names{
+    border-right: 0.125px solid blue;
 }
 
 ::-webkit-input-placeholder { /* Edge */
