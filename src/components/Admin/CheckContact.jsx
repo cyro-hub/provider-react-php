@@ -22,7 +22,7 @@ function CheckContact() {
           <th className='action'>action</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className='scroll'>
         {
           contacts?.map(message=><tr key={message.contactID}>
             <td>{message.contactDate}</td>

@@ -1,8 +1,26 @@
+import { useState,useEffect } from "react";
 import HomeNav from "../components/HomeNav";
 import ContactForm from "../components/Contact";
 import '../css_pages/home.scss'
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+import {useSelector} from 'react-redux';
+import SlideCard from "../components/SlideCard";
+import '@splidejs/react-splide/css';
 
 function Home() {
+const [size,setSize]=useState(window.innerWidth);
+const recipes = useSelector(state=>state.recipe.recipes);
+
+const checkSize=()=>{
+  setSize(window.innerWidth);
+}
+
+useEffect(()=>{
+  window.addEventListener('resize',checkSize);
+  return ()=>{
+    window.removeEventListener('resize',checkSize);;
+  }
+})
 
   return (<>
   <HomeNav/>
@@ -17,12 +35,28 @@ function Home() {
         <h3 className='section-header'>Popular</h3>
         <div>
           {/* add the popular recipes */}
+        <Splide options={ { rewind: true,
+                            perPage:size<400?1:size<700?2:size<1024?3:4,
+                            gap:'2rem',
+                            pagination:false,
+                            arrows:false,
+                            drag:'free'}} >
+        {recipes?.map((image) =><SplideSlide key={image.recipeID}><SlideCard image={image}/></SplideSlide>)}
+        </Splide>
         </div>
       </div>
       <div className="section">
         <h3 className='section-header'>Others</h3>
         <div>
           {/* add all the recipes */}
+          <Splide options={ { rewind: true,
+                            perPage:size<400?1:size<700?2:size<1024?3:4,
+                            gap:'2rem',
+                            pagination:false,
+                            arrows:false,
+                            drag:'free'}} >
+           {recipes?.map((image)=><SplideSlide key={image.recipeID}><SlideCard image={image} /></SplideSlide>)}
+        </Splide>
         </div>
       </div>
     </div>

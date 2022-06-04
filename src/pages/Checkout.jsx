@@ -1,5 +1,4 @@
 import {useSelector} from 'react-redux';
-import { useState } from 'react';
 import UserNav from '../components/UserNav'
 import '../css_pages/checkout.scss'
 import * as actions from '../redux/actions/cartActions'
@@ -7,8 +6,12 @@ import * as actions from '../redux/actions/cartActions'
 function Checkout() {
 const cart = useSelector(state=>state.cart.cart);
 
-function handleRemoveRecipe(id){
-  actions.removeFromCart(id)
+function handleRemoveRecipe(id,cart){
+  actions.removeFromCart(id,cart)
+}
+
+const handleChanges =(e,index)=>{
+  
 }
 
   return (<>
@@ -18,30 +21,27 @@ function handleRemoveRecipe(id){
     <table>
       <thead>
         <tr>
+          <th>#</th>
           <th>List</th>
           <th>Price</th>
-          <th>Qty</th>
           <th>Action</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className='scroll'>
         {
-          cart?.map(item=><tr>
+          cart?.map((item,index)=><tr key={index}>
+            <td>{index}</td>
             <td>{item.name}</td>
-            <td>{item.price}</td>
+            <td>{`$` +item.price}</td>
             <td>
-              {/* check the input function to handle order quantity  */}
-              <input type="number" name='quantity'/>
-            </td>
-            <td>
-              <button onClick={()=>handleRemoveRecipe(item.id)}            className='btn_remove'>remove</button>
+              <button onClick={()=>handleRemoveRecipe(index,cart)} className='btn_remove'>remove</button>
             </td>
           </tr>)
         }
       </tbody>
     </table>
     <div className='div-btn'>
-      <button className='checkout btn'>checkout</button>
+      <button className='checkout btn'>{cart.reduce((a,b) => { return parseFloat(a.price)+parseFloat(b.price)},0)}checkout</button>
     </div>
   </section>
   </>)

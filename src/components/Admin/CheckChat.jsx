@@ -40,7 +40,7 @@ const viewChat=(email)=>{
 }
 useEffect(()=>{
   bottomMessage.current?.scrollIntoView({ behavior: "smooth" })
-},[chats])
+},[message])
 
 useEffect(()=>{
   const timer = setInterval(()=>{
@@ -52,7 +52,7 @@ useEffect(()=>{
 
   return (<section className='main chat admin'>
     <h3>Chats</h3>
-      <input type="search" placeholder='search' name="search"   onChange={(e)=>setSearch(e.target.value)} id='search'   className='search' value={search}/>
+      <input type="search" placeholder='search' name="search"   onChange={(e)=>setSearch(e.target.value)} id='search'  autoComplete="off" className='search' value={search}/>
       {/* name of chats  */}
     <div className='chat-body'>
       <div className='chat-names scroll'>
@@ -66,7 +66,7 @@ useEffect(()=>{
       {/* name of chats  */}
       <div className='chats scroll'>
       {
-        chats?.map(chat=><React.Fragment key={chat.chatID}>
+        chats?.filter(chat=>chat.message.toLocaleLowerCase().includes(search.toLocaleLowerCase())).map(chat=><React.Fragment key={chat.chatID}>
           {chat.role==='admin'&&<p className='message message-right'>
             <span className='user-right'>{chat.name}</span>
               {chat.message}
@@ -85,7 +85,7 @@ useEffect(()=>{
         <MdLocationOn onClick={()=>handleLocation()} className='send-icon' size='20'/>
         <input type="text" 
                name='message' 
-               id='message'
+               id='message' autoComplete="off"
                value={message.message}
                onChange={e=>handleMessage(e)} 
                className='message-input'

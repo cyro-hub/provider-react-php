@@ -22,7 +22,7 @@ function CheckUsers() {
           <th className='action'>action</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className='scroll'>
         {
           users?.map(user=><tr key={user.userID}>
             <td>{user.userName}</td>

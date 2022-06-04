@@ -33,6 +33,7 @@ export const addLocation = async(location)=>{
 export const removeSuccess =()=>{
     store.dispatch({type:actionTypes.removeSuccess});
 }
+
 export const removeFromLocation=async(id)=>{
     return await fetch(`${process.env.REACT_APP_API}/location.php`, {
         method: 'POST',
@@ -77,3 +78,21 @@ export const getLocations=async()=>{
                     })
                 })
             }
+
+export const getRegions=(locations)=>{
+    var newLocations = locations.sort((a, b) => (a.region > b.region) ? 1 : -1)
+    var tmp='';
+    var len = newLocations.length;
+    var regions = [];
+    for(let i=0;i<len;i++){
+        if(tmp!==newLocations[i].region){
+            regions.push(newLocations[i]);
+            tmp=newLocations[i].region;
+        }
+    }
+    store.dispatch({
+        type:actionTypes.getRegions,
+        payload:regions
+    })
+}            
+          

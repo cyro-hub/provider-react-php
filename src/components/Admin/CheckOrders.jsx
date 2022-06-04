@@ -22,7 +22,7 @@ function CheckOrders() {
           <th>action</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className='scroll'>
         {
           orders?.map(user=><tr>
             <td>{orders.date}</td>

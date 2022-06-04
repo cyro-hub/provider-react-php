@@ -1,6 +1,6 @@
 import * as actionTypes from '../actionTypes';
 
-const locationReducer =(state={locations:[],success:''},action)=>{
+const locationReducer =(state={locations:[],success:'',regions:[]},action)=>{
 switch (action.type){
     case actionTypes.getLocations:
         return {
@@ -13,6 +13,11 @@ switch (action.type){
             ...state,
             success:''
         }
+    case actionTypes.getRegions:
+    return {
+        ...state,
+        regions:action.payload
+    }
     default:
         return {...state};
 }

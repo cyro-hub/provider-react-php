@@ -10,11 +10,16 @@ export const addToCart=(recipe)=>{
     })
 }
 
-export const removeFromCart=async(id)=>{
-    // perform a fetch to remove the item in cart
+export const removeFromCart=async(id,cart)=>{
+    var newCart = [];
+    for(let i=0;i<cart.length;i++){
+        if(i!==id){
+            newCart.push(cart[i])
+        }
+    }
     store.dispatch({
         type:actionTypes.removeFromCart,
-        payload:id
+        payload:newCart
     })
 }
 

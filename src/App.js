@@ -9,13 +9,21 @@ import Admin from './pages/Admin';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import * as user from './redux/actions/userActions';
 import * as area from './redux/actions/locationActions'
+import * as recipe from './redux/actions/recipeActions';
+import { useSelector } from 'react-redux';
 
 function App() {
+const locations = useSelector(state=>state.location.locations);
 
 useEffect(()=>{
   user.authenticateUser();
   area.getLocations();
+  recipe.getRecipes();
 },[])
+
+useEffect(()=>{
+  area.getRegions(locations);
+},[locations])
 
   return (
     <Router>

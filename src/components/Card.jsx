@@ -12,7 +12,7 @@ const handleAddToCart=(recipe)=>{
   return (
     <div className='card'>
         <div className='card-img-container'>
-        <img loading='lazy' src='https://www.eatthis.com/wp-content/uploads/sites/4/2019/06/deep-dish-pizza-chicago.jpg' alt="/" className='card-img' />
+        <img loading='lazy' src={recipe.imageUrl} alt={recipe.name} className='card-img' />
         <div className='img-cover'>
           <h4 className='card-name'>{recipe.name+" $"+recipe.price}</h4>
           <BsFillCartFill onClick={()=>handleAddToCart(recipe)} size='30' className='card-icon'/>

@@ -95,12 +95,12 @@ useEffect(()=>{
             <div>{warning&&<p className='warning'>{warning}</p>}</div>
             <div>{success&&<p className='success'>{success}</p>}</div>
             <div className='input-div'>
-                <input className='input' type="email" name='email' 
+                <input className='input' autoComplete="off" type="email" name='email' 
                 value={login.email} 
                 onChange={(e)=>handleChanges(e)} placeholder='Email' id='login-email' required/>
             </div> 
             <div className='input-div'>
-                <input className='input' type="password" name='password' 
+                <input className='input' autoComplete="off" type="password" name='password' 
                 value={login.password} 
                 onChange={(e)=>handleChanges(e)} placeholder='Password' id='login-password' required/>
             </div>
@@ -114,32 +114,32 @@ useEffect(()=>{
             <div className='input-div'><h3 className='section-header'>Register</h3></div>
             <div>{warning&&<p className='warning'>{warning}</p>}</div>
             <div className='input-div'>
-                <input className='input' type="text" name='name' 
+                <input className='input' autoComplete="off" type="text" name='name' 
                 value={register.name} 
                 onChange={(e)=>handleChanges(e)} placeholder='Name'/>
             </div>
             <div className='input-div'>
-                <input className='input' type="email" name='email' 
+                <input className='input' autoComplete="off" type="email" name='email' 
                 value={register.email} 
                 onChange={(e)=>handleChanges(e)} placeholder='Email'/>
             </div> 
             <div className='input-div'>
-                <input className='input' type="password" name='password' 
+                <input className='input' autoComplete="off" type="password" name='password' 
                 value={register.password} 
                 onChange={(e)=>handleChanges(e)} placeholder='Password'/>
             </div>
             <div className='input-div'>
-                <input className='input' type="password" name='cPassword' 
+                <input className='input' autoComplete="off" type="password" name='cPassword' 
                 value={register.cPassword} 
                 onChange={(e)=>handleChanges(e)} placeholder='Confirm password'/>
             </div>
             <div className='input-div'>
-                <input className='input' type="text" name='tel' 
+                <input className='input' autoComplete="off" type="text" name='tel' 
                 value={register.tel} 
                 onChange={(e)=>handleChanges(e)} placeholder='Phone'/>
             </div>
             <div className='input-div'>
-                <select className='input' name='location' 
+                <select className='input' autoComplete="off" name='location' 
                 onChange={(e)=>handleChanges(e)}>
                     <option value="" disabled >Your Location</option>
                     {

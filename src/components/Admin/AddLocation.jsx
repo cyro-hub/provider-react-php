@@ -57,10 +57,10 @@ return (
   </div>
   <div>{warning&&<p className='warning'>{warning}</p>}</div>
   <div className='input-div'>
-    <input type="text" className='input' name='region' id='region' placeholder='Region' value={location.region} onChange={(e)=>handleChanges(e)}/>
+    <input type="text" autoComplete="off" className='input' name='region' id='region' placeholder='Region' value={location.region} onChange={(e)=>handleChanges(e)}/>
   </div>
   <div className='input-div'>
-    <input type="text" className='input' name='town' id='town' placeholder='Town' value={location.town} onChange={(e)=>handleChanges(e)}/>
+    <input type="text" autoComplete="off" className='input' name='town' id='town' placeholder='Town' value={location.town} onChange={(e)=>handleChanges(e)}/>
   </div>
   <div className='input-div'>
     <button type='submit' className='submit account'>Add Location</button>

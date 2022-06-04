@@ -60,14 +60,14 @@ useEffect(()=>{
              placeholder='search message' 
              name="search" 
              onChange={(e)=>setSearchMessage(e.target.value)} 
-             id='search' 
+             id='search' autoComplete="off"
              className='search'/>
       {/* chat section  */}
 
     <div>{warning&&<p className='warning'>{warning}</p>}</div>
     <div className='messages scroll'>
         {
-        messages?.map(message=><React.Fragment key={message.chatID}>
+        messages?.filter(message=>message.message.toLocaleLowerCase().includes(searchMessage.toLocaleLowerCase())).map(message=><React.Fragment key={message.chatID}>
           {message.role==='admin'&&<p className='message message-left'>
               {message.message}
             <span className='date-right'>{message.date}</span>
@@ -83,7 +83,7 @@ useEffect(()=>{
     <div className='message-send'>
       <MdLocationOn onClick={()=>handleLocation()} className='send-icon' size='25'/>
       <input type="text" name='message' id='message'
-             value={message.message}
+             value={message.message} autoComplete="off"
              onChange={e=>handleMessage(e)} 
              className='message-input' 
              placeholder='type a message'

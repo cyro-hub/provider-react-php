@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', '1');
 include '../model/database.php';
 
 class Recipe extends Database{
@@ -13,14 +14,15 @@ class Recipe extends Database{
     public function addRecipe($name,$imgUrl,$price,$from,$delivery,$status,$des){
         $this->name = $name;
         $this->imgUrl = $imgUrl;
-        $this->price = $price;
+        $this->price = floatval($price);
         $this->from = $from;
         $this->delivery = $delivery;
         $this->status = $status;
         $this->des = $des;
 
-        $sql = "insert into Recipe(name,imgUrl,price,from,delivery,status,description) values('$this->name','$this->imgUrl','$this->price','$this->from','$this->delivery,$this->status,$this->des')";
-
+        $sql = "insert into Recipe(name,imageUrl,price,location,status,delivery,description
+        ) values('$this->name','$this->imgUrl',$this->price,'$this->from','$this->status','$this->delivery','$this->des')";
+        // echo $sql;
         if($this->insertDB($sql)){
             $sql = 'select * from Recipe';
             $data = $this->readDB($sql);

@@ -16,6 +16,8 @@ export const removeFromContactMessage = 'REMOVE_FROM_CONTACT_MESSAGES'
 export const getLocations = 'GET_LOCATIONS';
 export const removeFromLocation = 'REMOVE_FROM_LOCATION';
 export const removeSuccess = 'REMOVE_SUCCESS'
+export const getRegions = 'GET_REGIONS';
+export const getTowns = 'GET_TOWNS';
 
 //contact actions types
 export const addContact = 'ADD_CONTACT';
@@ -26,6 +28,11 @@ export const removeContact = 'REMOVE_CONTACT'
 export const getMessages = 'GET_MESSAGES';
 export const sendMessage = 'SEND_MESSAGE';
 export const getUsers = 'GET_USERS';
+
+//recipes action types
+export const getRecipes = 'GET_RECIPES';
+export const isUploading = 'IS_UPLOADING';
+export const removeIsUploading = 'REMOVE_IS_LOADING';
 
 //unknown action type
 export const unknown = 'UNKNOWN'
