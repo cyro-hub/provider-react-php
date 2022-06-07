@@ -13,20 +13,23 @@ $data = json_decode(file_get_contents("php://input", true));
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $allheaders=getallheaders();
-    $authorization = $allheaders['Authorization'];
-
-    if($authorization==='contact'){
+    if($data->post === 'add_contact'){
+        
+        $data = $data->contact;
+        
         $region = htmlentities($data->region);
         $name = htmlentities($data->name);
         $town = htmlentities($data->town);
         $message = htmlentities($data->message);
 
         $contact->addContactInfo($name,$region,$town,$message);
-    }else{
+        
+    }else if($data->post === 'remove_contact'){
+        
         $id = htmlentities($data->contactID);
 
         $contact->deleteContact($id);
+        
     }
 }
 

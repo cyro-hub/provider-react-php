@@ -1,0 +1,20 @@
+.admin{
+    width: 1200px;
+    display: flex;
+    flex-direction: column;
+
+    .recipe_table{
+        width: 1200px;
+
+        table{
+            width: 1200px;
+        }
+    }
+}
+
+.actions{
+    flex:.5; 
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

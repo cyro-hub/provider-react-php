@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 function UserNav() {
 const [showMenu,setShowMenu] = useState(false)
 const cart = useSelector(state=>state.cart.cart.length)
+const newMessages = useSelector(state=>state.chat.newMessages);
 
 const changes=()=>{
   if(window.innerWidth>640){
@@ -30,7 +31,7 @@ return (<section className='nav'>
       <span className='nav-tooltip'>{cart}</span>
       </Link>
       <Link to='/chat' className='nav-item'><BiMessageRoundedDots size='28' className='nav-icon'/>
-      <span className='nav-tooltip'>{}</span>
+      <span className='nav-tooltip'>{newMessages}</span>
       </Link>
       <Link to='/login' className='nav-item'><BiUser size='28' className='nav-icon'/></Link>
     </div>

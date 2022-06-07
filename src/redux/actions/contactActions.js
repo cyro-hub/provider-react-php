@@ -6,11 +6,7 @@ import store from '../store'
 export const removeFromContactMessage=async(id)=>{
     return await fetch(`${process.env.REACT_APP_API}/contact.php`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization':' '
-        },
-        body: JSON.stringify({contactID:id}),
+        body: JSON.stringify({contactID:id,post:'remove_contact'}),
         })
         .then(response => response.json())
         .then(data=>{
@@ -29,10 +25,6 @@ export const removeFromContactMessage=async(id)=>{
                 type:actionTypes.unknown
             })
         ])
-    // store.dispatch({
-    //     type:actionTypes.removeFromContactMessage,
-    //     payload:id
-    // })
 }
 
 export const removeSuccess =()=>{
@@ -42,11 +34,7 @@ export const removeSuccess =()=>{
 export const addContact=async(contact)=>{
     return await fetch(`${process.env.REACT_APP_API}/contact.php`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization':'contact'
-        },
-        body: JSON.stringify(contact),
+        body: JSON.stringify({contact,post:'add_contact'}),
         })
         .then(response => response.json())
         .then(data=>{

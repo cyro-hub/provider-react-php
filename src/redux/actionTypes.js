@@ -8,6 +8,8 @@ export const viewUsers = 'VIEW_USERS';
 export const addToCart = 'ADD_TO_CART';
 export const removeFromCart = 'REMOVE_FROM_CART'
 export const removeFromOrders = 'REMOVE_FROM_ORDERS'
+export const addOrder = 'ADD_ORDER';
+export const getOrders = 'GET_ORDERS';
 
 // contact messages action types
 export const removeFromContactMessage = 'REMOVE_FROM_CONTACT_MESSAGES'
@@ -18,6 +20,7 @@ export const removeFromLocation = 'REMOVE_FROM_LOCATION';
 export const removeSuccess = 'REMOVE_SUCCESS'
 export const getRegions = 'GET_REGIONS';
 export const getTowns = 'GET_TOWNS';
+export const addLocation = 'ADD_LOCATION';
 
 //contact actions types
 export const addContact = 'ADD_CONTACT';
@@ -33,6 +36,12 @@ export const getUsers = 'GET_USERS';
 export const getRecipes = 'GET_RECIPES';
 export const isUploading = 'IS_UPLOADING';
 export const removeIsUploading = 'REMOVE_IS_LOADING';
+export const removeRecipe = 'REMOVE_RECIPE'
+export const setEditRecipe = 'EDIT_RECIPE'
+export const getRecipesByStatus = 'GET_RECIPES_BY_STATUS';
+
+//analysis action types
+export const getAnalysis = 'GET_ANALYSIS';
 
 //unknown action type
 export const unknown = 'UNKNOWN'

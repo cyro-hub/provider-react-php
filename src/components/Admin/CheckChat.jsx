@@ -46,12 +46,11 @@ useEffect(()=>{
   const timer = setInterval(()=>{
     actions.getUsers();
     actions.getChatsByEmail(email)
-  },500)
+  },10000)
   return ()=>clearInterval(timer)
 })
 
   return (<section className='main chat admin'>
-    <h3>Chats</h3>
       <input type="search" placeholder='search' name="search"   onChange={(e)=>setSearch(e.target.value)} id='search'  autoComplete="off" className='search' value={search}/>
       {/* name of chats  */}
     <div className='chat-body'>

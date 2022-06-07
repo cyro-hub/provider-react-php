@@ -26,8 +26,8 @@ public function userDetails($name,$email,$password,$tel,$location){
 
 // this is the login of the user
 public function loginUser($email,$password){
-    $sql = "select email,password,userName from users where email = '$email'";
-    
+    // $sql = "select email,password,userName from users where email = '$email'";
+    $sql = "select * from users where email = '$email'";
     $data = $this->readDB($sql);
     
     if($this->readDB($sql)){
@@ -39,7 +39,7 @@ public function loginUser($email,$password){
                     'iat' => time(),
                     'nbf' => time()+10,
                     'exp' => time()+60*60*12,
-                    'data'=>Array('userName'=>$values['userName'],'email'=>$values['email'])
+                    'data'=>Array('userName'=>$values['userName'],'email'=>$values['email'],'location'=>$values['location'])
                 ];
 
                 try{
@@ -71,18 +71,36 @@ public function registerUser(){
 }
 //removing user from the database
 public function removeUser($userID){
-    $sql = "delete from users where userID=$userID";
+    $sql = "select * from users where userID=$userID";
 
+    $email = $this->readDB($sql)[0]['email'];
+
+    $sql = "delete from users where email = '$email'";
+    
     if($this->insertDB($sql)){//using the insert function from the Database class to delete user
-        $sql = 'select * from users';
-        $data = $this->readDB($sql);
-        if($data){
-            echo json_encode(['data'=>$data,'message'=>'User remove successfully','status'=>200],true);
-        }else{
+    
+        $sql = "delete from Chat where email = '$email'";
+
+        if($this->insertDB($sql)){
+
+            $sql = 'select * from users';
+
+            $data = $this->readDB($sql);
+            
+            if($data){
+
+                echo json_encode(['data'=>$data,'message'=>'User remove successfully','status'=>200],true);
+            
+            }else{
+
             echo json_encode(['message'=>'Failed to read user update','status'=>404],true);
+            
+            }
         }
     }else{
+
         echo json_encode(['message'=>'Failed to remove user','status'=>404],true);
+    
     }
 }
 

@@ -1,22 +1,25 @@
 import React,{useState,useEffect} from 'react'
-import { storage } from "../../firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../../../firebase";
+import { ref, uploadBytes, getDownloadURL , deleteObject} from "firebase/storage";
 import RingLoader from "react-spinners/RingLoader";
 import { useSelector } from 'react-redux';
-import * as actions from '../../redux/actions/recipeActions'
-import '../../css_components/form.scss'
+import * as actions from '../../../redux/actions/recipeActions'
 
-function AddRecipe() {
+function EditRecipe() {
 const locations = useSelector(state=>state.location.regions)
 const isUploading =  useSelector(state=>state.recipe.uploadingRecipe)
+const toBeEdited =  useSelector(state=>state.recipe.toBeEdited)
 
 const [recipe,setRecipe]=useState({
-  name:'',
-  price:'',
-  from:'no-location',
-  delivery:false,
-  status:false,
-  des:''
+    recipeID:toBeEdited.recipeID,
+    name:toBeEdited.name,
+    imageName:toBeEdited.imageName,
+    imageUrl:toBeEdited.imageUrl,
+    price:toBeEdited.price,
+    from:toBeEdited.location,
+    delivery:false,
+    status:false,
+    des:toBeEdited.description
 })
 const [image,setImage]=useState(null)
 const [warning,setWarning]=useState('');
@@ -24,77 +27,82 @@ const [success,setSuccess]=useState('');
 const [imageSelected,setImageSelected]=useState(false);
 
 const handleChanges=(e)=>{
-  if(e.target.checked){
-    setRecipe({...recipe,[e.target.name]:e.target.checked})
-    return;
-  }
-  if(e.target.name === 'image'){
-      setImage(e.target.files[0])
-      setImageSelected(true);
-      return;
-  }
-  setRecipe({...recipe,[e.target.name]:e.target.value})
-}
-
-const handleSubmit=async(url,imageName)=>{
-  const newRecipe = {...recipe,imageUrl:url,imageName:imageName}
-  // check for empty fields 
-  for(const key in newRecipe){
-    if(recipe[key]===''){
-      setWarning(`${key} is empty`)
+    if(e.target.checked){
+      setRecipe({...recipe,[e.target.name]:e.target.checked})
       return;
     }
+    if(e.target.name === 'image'){
+        setImage(e.target.files[0])
+        setImageSelected(true);
+        return;
+    }
+    setRecipe({...recipe,[e.target.name]:e.target.value})
   }
-  actions.addRecipe(newRecipe)
-  setRecipe({
-    name:'',
-    price:'',
-    from:'no-location',
-    delivery:0,
-    status:0,
-    des:''
-  })
-  setImageSelected(false);
+const handleSubmit=async(url)=>{
+    const newRecipe = {...recipe,imageUrl:url}
+    // check for empty fields 
+    for(const key in newRecipe){
+      if(recipe[key]===''){
+        setWarning(`${key} is empty`)
+        return;
+      }
+    }
+    actions.editRecipe(newRecipe)
+    setRecipe({
+      name:'',
+      price:'',
+      from:'',
+      delivery:false,
+      status:false,
+      des:''
+    })
+    setImageSelected(false);
 }
 
-// submitting image to firestorage
 const submitImage=async(e)=>{
-  e.preventDefault();
+e.preventDefault();
+
+  const imageRef = ref(storage, recipe.imageName);
 
   if(image===null){
     setWarning('insert an image')
     return;
   }
+  
   actions.isUploading();
-  const imageName = (new Date()).toUTCString();
-  const imageRef = ref(storage, imageName);
-    await uploadBytes(imageRef, image)
-      .then(() => {
-        getDownloadURL(imageRef)
-          .then((url) => {
-            if(url){
-              handleSubmit(url,imageName)
-            }
-          })
-          .catch((error) => {
-            actions.removeIsUploading();
-            actions.removeImage(imageName)
-          });
-      })
-      .catch((error) => {
-        actions.removeIsUploading();
-      });
+  await deleteObject(imageRef).then(() => {
+    uploadBytes(imageRef, image)
+        .then(() => {
+          getDownloadURL(imageRef)
+            .then((url) => {
+              if(url){
+                handleSubmit(url)
+              }
+            })
+            .catch((error) => {
+              actions.removeIsUploading();
+              actions.removeImage(recipe.imageName)
+              setWarning('Unable to update Recipe')
+            });
+        })
+        .catch((error) => {
+          setWarning('Unable to update Recipe')
+          actions.removeIsUploading();
+        });
+    
+  }).catch((error) => {
+    console.log(error.message)
+    actions.removeIsUploading();
+  });
 }
-
 useEffect(()=>{
-  const timer = setTimeout(()=>{
-      setWarning('')
-      setSuccess('')
-  },4000)
-  return ()=>clearTimeout(timer)
+    const timer = setTimeout(()=>{
+        setWarning('')
+        setSuccess('')
+    },4000)
+    return ()=>clearTimeout(timer)
 })
-
-  return (<>{
+return (<>{
     isUploading?<div className='form spinner'><RingLoader 
     color='white' 
     loading={isUploading} 
@@ -112,16 +120,16 @@ useEffect(()=>{
       </div>
       <div className='input-div'>
         <label htmlFor="image" className='submit contact'>
-          {imageSelected?<img className='selected-image' src={URL.createObjectURL(image)} alt='selected img'/>:'Select an Image'}
+          {imageSelected?<img className='selected-image' src={URL.createObjectURL(image)} alt='selected img'/>:<img className='selected-image' src={recipe.imageUrl} alt='selected img'/>}
           <input type="file"  className='input' autoComplete="off" name='image' id='image' onChange={(e)=>handleChanges(e)} style={{display:'none'}} accept={'.jpeg,.png,.jpg,.gif'} />
         </label>
       </div>
       <div className='input-div'>
-        <input type="number" placeholder='Price' name='price' step='.00' className='input' autoComplete="off" id='price' onChange={(e)=>handleChanges(e)} value={recipe.price}/>
+        <input type="number" placeholder='Price' name='price' className='input' autoComplete="off" id='price' onChange={(e)=>handleChanges(e)} value={recipe.price}/>
       </div>
       <div className='input-div'>
         <select name="from" className='input' onChange={(e)=>handleChanges(e)} id="country">
-          <option value="">Select location</option>
+          <option value="" disabled>Select location</option>
         {
           locations?.map(location=><option className='option' key={location.locationID} value={location.region}>{location.region}</option>)
         }
@@ -139,10 +147,10 @@ useEffect(()=>{
         <textarea  className='input-textarea' name="des" autoComplete="off" id="des" placeholder='Description' cols="30" rows="6" onChange={(e)=>handleChanges(e)} value={recipe.des}></textarea>
       </div>
       <div className='input-div'>
-        <button type='submit' className='submit contact'>Add Recipe</button>
+        <button type='submit' className='submit contact'>Update Recipe</button>
       </div>
     </form>}
   </>)
 }
 
-export default AddRecipe
+export default EditRecipe

@@ -16,7 +16,7 @@ function CheckContact() {
         <tr>
           <th>Date</th>
           <th>Name</th>
-          <th>Region</th>
+          <th className='action'>Region</th>
           <th>Town</th>
           <th>Message</th>
           <th className='action'>action</th>
@@ -27,7 +27,7 @@ function CheckContact() {
           contacts?.map(message=><tr key={message.contactID}>
             <td>{message.contactDate}</td>
             <td>{message.name}</td>
-            <td>{message.region}</td>
+            <td className='action'>{message.region}</td>
             <td>{message.town}</td>
             <td>{message.message}</td>
             <td className='action'>

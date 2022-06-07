@@ -6,6 +6,12 @@ class Database{
     protected $dbPassword;
     protected $dbName;
 
+    // public function setCredentials(){
+    //     $this->localhost = 'localhost';
+    //     $this->dbUserName = 'id18900777_cyril';
+    //     $this->dbPassword = 'rn=W*NaJbm$6X>5O';
+    //     $this->dbName = 'id18900777_test';
+    // }
     public function setCredentials(){
         $this->localhost = 'localhost';
         $this->dbUserName = 'root';

@@ -5,11 +5,13 @@ import '../css_pages/home.scss'
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import {useSelector} from 'react-redux';
 import SlideCard from "../components/SlideCard";
+import {Link} from 'react-router-dom'
 import '@splidejs/react-splide/css';
 
 function Home() {
 const [size,setSize]=useState(window.innerWidth);
 const recipes = useSelector(state=>state.recipe.recipes);
+const popular = useSelector(state=>state.recipe.popular);
 
 const checkSize=()=>{
   setSize(window.innerWidth);
@@ -27,13 +29,13 @@ useEffect(()=>{
   <section className="main">
     <div className="welcome">
       <h2>Welcome To Provider</h2>
-      <h3><a href="/user">Start</a></h3>
+      <h3><Link to="/user">Start</Link></h3>
     </div>
     {/* this all the products in resto */}
     <div id='tour'>
-      <div className="section">
+      <div>
         <h3 className='section-header'>Popular</h3>
-        <div>
+        <div className="section">
           {/* add the popular recipes */}
         <Splide options={ { rewind: true,
                             perPage:size<400?1:size<700?2:size<1024?3:4,
@@ -41,13 +43,13 @@ useEffect(()=>{
                             pagination:false,
                             arrows:false,
                             drag:'free'}} >
-        {recipes?.map((image) =><SplideSlide key={image.recipeID}><SlideCard image={image}/></SplideSlide>)}
+        {popular?.map((image) =><SplideSlide key={image.recipeID}><SlideCard image={image}/></SplideSlide>)}
         </Splide>
         </div>
       </div>
-      <div className="section">
+      <div>
         <h3 className='section-header'>Others</h3>
-        <div>
+        <div className="section">
           {/* add all the recipes */}
           <Splide options={ { rewind: true,
                             perPage:size<400?1:size<700?2:size<1024?3:4,

@@ -51,6 +51,30 @@ class Location extends Database{
         }
         return;
     }
+
+    public function getRegions(){
+        $sql = "select distinct region from Location";
+
+        $data = $this->readDB($sql);
+            if($data){
+                echo json_encode(['data'=>$data,'message'=>'Successfully read Region','status'=>200],true);
+            }else{
+                echo json_encode(['message'=>'Failed to read region','status'=>404],true);
+            }
+    }
+
+    public function getTowns($region){
+        $this->region = $region;
+        $sql = "select * from Location where region = '$this->region'";
+        
+            $data = $this->readDB($sql);
+             
+            if($data){
+                echo json_encode(['data'=>$data,'message'=>'Successfully read towns','status'=>200],true);
+            }else{
+                echo json_encode(['message'=>'Failed to read towns','status'=>404],true);
+            }
+    }
 }
 
 

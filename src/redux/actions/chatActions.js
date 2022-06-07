@@ -6,11 +6,7 @@ import store from '../store'
 export const sendMessage=async(message)=>{
     return await fetch(`${process.env.REACT_APP_API}/chat.php`,{
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization':'user'
-        },
-        body: JSON.stringify(message),
+        body: JSON.stringify({message,post:'user'}),
         })
         .then(res=>res.json())
         .then(data=>{
@@ -68,14 +64,11 @@ export const getUsers=async()=>{
 export const getChatsByEmail = async(email)=>{
     return await fetch(`${process.env.REACT_APP_API}/chat.php`,{
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization':'messages'
-        },
-        body:JSON.stringify({email:email}),
+        body:JSON.stringify({email:email,post:'get_message_by_email'}),
         })
         .then(res=>res.json())
         .then(data=>{
+            console.log(data)
             if(data.status===200){
                 store.dispatch({
                     type:actionTypes.getMessages,
@@ -83,11 +76,12 @@ export const getChatsByEmail = async(email)=>{
                 })
             }else{
                 store.dispatch({
-                    type:actionTypes.unknown,
+                    type:actionTypes.getMessages,
                     payload:[]
             })
             }
         }).catch(err=>{
+            console.log(err.message)
             store.dispatch({
                 type:actionTypes.unknown,
                 payload:[]
@@ -99,11 +93,7 @@ export const getChatsByEmail = async(email)=>{
 export const getMessageByName=async(credential)=>{
     return await fetch(`${process.env.REACT_APP_API}/chat.php`,{
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization':'userMessage'
-        },
-        body:JSON.stringify({credential:credential})
+        body:JSON.stringify({credential:credential,post:'get_message_by_name'})
         })
         .then(res=>res.json())
         .then(data=>{
@@ -124,11 +114,7 @@ export const getMessageByName=async(credential)=>{
 export const sendMessageByAdmin=async(message)=>{
     return await fetch(`${process.env.REACT_APP_API}/chat.php`,{
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization':'admin'
-        },
-        body: JSON.stringify(message),
+        body: JSON.stringify({message,post:'admin'}),
         })
         .then(res=>res.json())
         .then(data=>{

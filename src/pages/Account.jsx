@@ -12,7 +12,7 @@ const [register,setRegister]=useState({
     password:'',
     cPassword:'',
     tel:'',
-    location:locations?.town||'location unavailable'
+    location:'no location'
 });
 
 const [login,setLogin]=useState({
@@ -28,7 +28,7 @@ const [navigateToUser,setNavigateToUser]=useState(null)
 
 const handleRegister=(e)=>{
     e.preventDefault();
-
+    localStorage.setItem('cart',JSON.stringify([]))
     if(!register.password.match(passwordPattern)){
         setWarning('Password must contain atleast 8 letter or numbers')
         return;
@@ -50,7 +50,6 @@ const handleRegister=(e)=>{
                 setShowRegister(true)
             }
         })
-     
 }
 
 const handleLogin = (e)=>{
@@ -141,7 +140,7 @@ useEffect(()=>{
             <div className='input-div'>
                 <select className='input' autoComplete="off" name='location' 
                 onChange={(e)=>handleChanges(e)}>
-                    <option value="" disabled >Your Location</option>
+                    <option value="" >Select Location</option>
                     {
                      locations?.map(location=><option className='option' key={location.locationID} value={location.town}>{location.town}</option>)
                     }

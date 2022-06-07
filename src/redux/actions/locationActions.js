@@ -5,17 +5,14 @@ import store from '../store'
 export const addLocation = async(location)=>{
     return await fetch(`${process.env.REACT_APP_API}/location.php`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization':'location'
-        },
-        body: JSON.stringify(location),
+        body: JSON.stringify({location,post:"add_location"}),
         })
         .then(response => response.json())
         .then(data=>{
+            console.log(data)
             if(data.status===200){
                 store.dispatch({
-                    type:actionTypes.getLocations,
+                    type:actionTypes.addLocation,
                     payload:data.data
                 })
             }else{
@@ -23,11 +20,12 @@ export const addLocation = async(location)=>{
                     type:actionTypes.unknown
                 })
             }
-        }).catch(err=>[
+        }).catch(err=>{
+            console.log(err.message)
             store.dispatch({
                 type:actionTypes.unknown
             })
-        ])
+})
 }
 
 export const removeSuccess =()=>{
@@ -37,11 +35,7 @@ export const removeSuccess =()=>{
 export const removeFromLocation=async(id)=>{
     return await fetch(`${process.env.REACT_APP_API}/location.php`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization':' '
-        },
-        body: JSON.stringify({locationID:id}),
+        body: JSON.stringify({locationID:id,post:'remove_location'}),
         })
         .then(response => response.json())
         .then(data=>{
@@ -79,20 +73,49 @@ export const getLocations=async()=>{
                 })
             }
 
-export const getRegions=(locations)=>{
-    var newLocations = locations.sort((a, b) => (a.region > b.region) ? 1 : -1)
-    var tmp='';
-    var len = newLocations.length;
-    var regions = [];
-    for(let i=0;i<len;i++){
-        if(tmp!==newLocations[i].region){
-            regions.push(newLocations[i]);
-            tmp=newLocations[i].region;
-        }
-    }
-    store.dispatch({
-        type:actionTypes.getRegions,
-        payload:regions
-    })
-}            
+export const getRegions=async(locations)=>{
+    return await fetch(`${process.env.REACT_APP_API}/location.php`, {
+        method: 'POST',
+        body:JSON.stringify({post:'get_regions'})})
+        .then(response => response.json())
+        .then(data=>{
+            if(data.status===200){
+                store.dispatch({
+                    type:actionTypes.getRegions,
+                    payload:data.data
+                })
+            }else{
+                store.dispatch({
+                    type:actionTypes.unknown
+                })
+            }
+        }).catch(err=>{
+            store.dispatch({
+                type:actionTypes.unknown
+            })
+})
+}          
+
+export const getTowns =async(region)=>{
+    return await fetch(`${process.env.REACT_APP_API}/location.php`, {
+        method: 'POST',
+        body: JSON.stringify({region:region,post:'get_towns'}),})
+        .then(response => response.json())
+        .then(data=>{
+            if(data.status===200){
+                store.dispatch({
+                    type:actionTypes.getTowns,
+                    payload:data.data
+                })
+            }else{
+                store.dispatch({
+                    type:actionTypes.unknown
+                })
+            }
+        }).catch(err=>{
+            store.dispatch({
+                type:actionTypes.unknown
+            })
+})
+}
           

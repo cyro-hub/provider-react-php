@@ -9,10 +9,7 @@ import store from '../store'
 export const authenticateUser = async()=>{
     return await fetch(`${process.env.REACT_APP_API}/jwtVerify.php`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization':JSON.parse(localStorage.getItem('token'))||''
-        }
+        body:localStorage.getItem('token')
         }).then(response => response.json()).then(data=>{
             if(data.message){
                 //dispatching actions
@@ -33,11 +30,7 @@ export const loginAuth=()=>{
 export const removeFromUsers = async(id)=>{
     return await fetch(`${process.env.REACT_APP_API}/user.php`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization':''
-        },
-        body: JSON.stringify({userID:id}),
+        body: JSON.stringify({userID:id,"post":''}),
         })
         .then(response => response.json())
         .then(data=>{
@@ -52,11 +45,11 @@ export const removeFromUsers = async(id)=>{
                     payload:[]
                 })
             }
-        }).catch(err=>[
+        }).catch(err=>{
             store.dispatch({
                 type:actionTypes.unknown
             })
-        ])
+        })
     }
 
 export const getUsers = async()=>{
@@ -83,11 +76,7 @@ export const getUsers = async()=>{
 export const login = async(user)=>{
     return await fetch(`${process.env.REACT_APP_API}/user.php`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization':'login'
-        },
-        body: JSON.stringify(user),
+        body: JSON.stringify({user,"post":"login"}),
         })
         .then(response => response.json())
 }
@@ -95,11 +84,7 @@ export const login = async(user)=>{
 export const register = async(user)=>{
     return await fetch(`${process.env.REACT_APP_API}/user.php`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization':'register'
-        },
-        body: JSON.stringify(user),
+        body: JSON.stringify({user,"post":"register"}),
         })
         .then(response => response.json())
 }

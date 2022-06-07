@@ -10,20 +10,28 @@ import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import * as user from './redux/actions/userActions';
 import * as area from './redux/actions/locationActions'
 import * as recipe from './redux/actions/recipeActions';
+import * as cart from './redux/actions/cartActions';
 import { useSelector } from 'react-redux';
+import * as analysis from './redux/actions/analysisActions';
 
 function App() {
 const locations = useSelector(state=>state.location.locations);
 
 useEffect(()=>{
-  user.authenticateUser();
-  area.getLocations();
-  recipe.getRecipes();
+  const timer = setInterval(()=>{
+    user.authenticateUser();
+    area.getLocations();
+    recipe.getRecipes();
+    recipe.getRecipesByStatus();
+    cart.getOrders();
+    analysis.getAnalysis();
+    area.getRegions(locations);
+  },10000)
+  
+  return ()=>clearInterval(timer)
+
 },[])
 
-useEffect(()=>{
-  area.getRegions(locations);
-},[locations])
 
   return (
     <Router>

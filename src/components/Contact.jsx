@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import * as contactActions from '../redux/actions/contactActions'
+import * as locationActions  from '../redux/actions/locationActions'
 import '../css_components/form.scss'
 
 function Contact() {
@@ -11,14 +12,17 @@ const [contact,setContact]=useState({
     message:''
 });
 const regions = useSelector(state=>state.location.regions);
-const locations = useSelector(state=>state.location.locations);
+const towns = useSelector(state=>state.location.towns);
+
 
 const [warning,setWarning]=useState('');
 const success = useSelector(state=>state.contact.success);
 
 const handleChanges=(e)=>{
+    if(e.target.name === 'region'){
+        locationActions.getTowns(e.target.value)
+    }
     setContact({...contact,[e.target.name]:e.target.value})
-    console.log(contact);
 }
 
 const handleSubmit=(e)=>{
@@ -56,18 +60,18 @@ useEffect(()=>{
       <div className='input-div'>
         <select className='input' autoComplete="off" name='region' 
              onChange={(e)=>handleChanges(e)}>
-            <option value="" disabled >Your Region</option>
+            <option value="">Your Region</option>
                 {
-                    regions?.map(location=><option className='option' key={location.locationID} value={location.region}>{location.region}</option>)
+                    regions?.map((region,i)=><option className='option' key={i} value={region.region}>{region.region}</option>)
                 }
         </select>
       </div>
       <div className='input-div'>
         <select className='input' autoComplete="off" name='town' 
                 onChange={(e)=>handleChanges(e)}>
-                <option value="" disabled >Your Town</option>
+                <option value="">Your Town</option>
                     {
-                        locations?.filter(location=>location.region.toLocaleLowerCase()===contact.region.toLocaleLowerCase())?.map(location=><option className='option' key={location.locationID} value={location.town}>{location.town}</option>)
+                        towns?.map((town,i)=><option className='option' key={i} value={town.town}>{town.town}</option>)
                     }
             </select>
       </div>

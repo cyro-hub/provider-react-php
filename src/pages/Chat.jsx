@@ -40,17 +40,17 @@ const handleLocation=async()=>{
   }
   setWarning('The location is not available');
 }
+
 useEffect(()=>{
-  bottomMessage.current?.scrollIntoView({ behavior: "smooth" })
-},[messages])
+    bottomMessage.current?.scrollIntoView({ behavior: "smooth" })
+},[message])
 
 useEffect(()=>{
   const timer = setInterval(()=>{
-    // console.log('helo')
     setWarning('')
     const credentials = JSON.parse(localStorage.getItem('token'))||'';
     actions.getMessageByName(credentials);
-  },300)
+  },5000)
   return ()=>clearInterval(timer)
 })
   return (<>
